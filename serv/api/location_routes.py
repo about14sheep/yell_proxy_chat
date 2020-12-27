@@ -1,15 +1,23 @@
-from serv.models import User, Location
-from flask import Blueprint
+from serv.models import db, User, Location
+from flask import Blueprint, request
 from sqlalchemy import func
 
 
 location_routes = Blueprint('locations', __name__)
 
 
-@location_routes.route('/')
+@location_routes.route('/', methods=['GET', 'POST'])
 def index():
-    locations = Location.query.all()
-    return {'users': [location.to_dict() for location in locations]}
+    if request.method == 'POST':
+        data = request.json
+        location = Location(longitude=data['long'], latitude=data['lat'])
+        location.update_geo()
+        db.session.add(location)
+        db.session.commit()
+        return {'location added': location.to_dict()}
+    else:
+        locations = Location.query.all()
+        return {'locations': [location.to_dict() for location in locations]}
 
 
 @location_routes.route('/<id>')

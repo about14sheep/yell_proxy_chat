@@ -34,10 +34,11 @@ def location(id):
     return {'locations': location.to_dict()}
 
 
-@app.route('/api/locations/rad/<rad>/pos/<geo>')
-def locations_in_range(rad, geo):
-    locations = Location.query.filter(func.ST_Distance_Sphere(
+@app.route('/api/locations/rad/<rad>/user/<id>')
+def locations_in_range(rad, id):
+    usr = User.query.get(id)
+    locations = Location.query.filter(func.ST_DistanceSphere(
                                         Location.geo,
-                                        geo
+                                        usr.geo
                                         ) < rad).all()
     return {'locations': [location.to_dict() for location in locations]}

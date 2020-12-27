@@ -12,6 +12,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask = "*"
 python-dotenv = "*"
+geoalchemy2 = "*"
 
 [requires]
 python_version = "3.8"

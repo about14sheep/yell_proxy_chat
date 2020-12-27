@@ -30,6 +30,7 @@ class Location(db.Model):
           'id': self.id,
           'longitude': self.longitude,
           'latitude': self.latitude,
+          'geo': '{}'.format(self.geo),
         }
 
     def update_geo(self):

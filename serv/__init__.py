@@ -4,7 +4,6 @@ from .config import Config
 from .api.user_routes import user_routes
 from .api.location_routes import location_routes
 
-import os
 from flask import Flask
 
 app = Flask(__name__)

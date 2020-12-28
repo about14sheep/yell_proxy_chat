@@ -12,6 +12,9 @@ flask-migrate = "*"
 flask = "*"
 python-dotenv = "*"
 geoalchemy2 = "*"
+flask-login = "*"
+flask-jwt-extended = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"

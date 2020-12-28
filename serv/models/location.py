@@ -15,7 +15,6 @@ class Location(db.Model):
     @classmethod
     def delete_expired(cls):
         limit = datetime.now() - timedelta(minutes=5)
-        print(limit)
         cls.query.filter(cls.timestamp >= limit).delete()
         db.session.commit()
 

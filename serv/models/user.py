@@ -40,11 +40,11 @@ class User(db.Model):
 
     def update_position(self):
         self.update_geo()
-        db.session.commit()
+        self.commit_user()
 
     def delete_user(self):
         db.session.delete(self)
-        db.session.commit()
+        self.commit_user()
 
     def add_user(self):
         db.session.add(self)

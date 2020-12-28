@@ -1,5 +1,5 @@
 from serv.models import User
-from flask import Blueprint
+from flask import Blueprint, request
 
 user_routes = Blueprint('users', __name__)
 
@@ -10,7 +10,12 @@ def index():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<id>')
+@user_routes.route('/<id>', methods=['GET', 'PUT'])
 def user(id):
     user = User.query.get(id)
+    if request.method == 'PUT':
+        data = request.json
+        user.longitude = data['long']
+        user.latitude = data['lat']
+        user.update_position()
     return {'user': user.to_dict()}

@@ -1,6 +1,5 @@
-from serv.models import db, User, Location
+from serv.models import Location
 from flask import Blueprint, request
-from sqlalchemy import func
 
 
 location_routes = Blueprint('locations', __name__)
@@ -10,11 +9,13 @@ location_routes = Blueprint('locations', __name__)
 def index():
     if request.method == 'POST':
         data = request.json
-        location = Location(longitude=data['long'], latitude=data['lat'])
-        location.update_geo()
-        db.session.add(location)
-        db.session.commit()
-        return {'location added': location.to_dict()}
+        locations = Location.locations_in_radius(data['user_id'], 152)
+        if locations:
+            return {
+                'locations': [location.to_dict() for location in locations]}
+        else:
+            location = Location.new_location(data['user_id'])
+            return {'new_location': location.to_dict()}
     else:
         locations = Location.query.all()
         return {'locations': [location.to_dict() for location in locations]}
@@ -26,12 +27,8 @@ def location(id):
     return {'locations': location.to_dict()}
 
 
-@location_routes.route('/rad/<rad>/user/<id>')
-def locations_in_range(rad, id):
-    usr = User.query.get(id)
-    locations = Location.query.filter(
-                                      func.ST_DistanceSphere(
-                                        Location.geo,
-                                        usr.geo
-                                      ) < rad).all()
+@location_routes.route('/rad/<rad>')
+def locations_in_range(rad):
+    data = request.json
+    locations = Location.locations_in_radius(data['user_id'], rad)
     return {'locations': [location.to_dict() for location in locations]}

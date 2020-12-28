@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2 import Geometry
+from sqlalchemy import func
 
 db = SQLAlchemy()
 
@@ -18,12 +19,15 @@ class User(db.Model):
           'id': self.id,
           'longitude': self.longitude,
           'latitude': self.latitude,
-          'username': self.username,
-          'geo': '{}'.format(self.geo),
+          'username': self.username
         }
 
     def update_geo(self):
         self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
+
+    def update_position(self):
+        self.update_geo()
+        db.session.commit()
 
 
 class Location(db.Model):
@@ -38,9 +42,25 @@ class Location(db.Model):
         return {
           'id': self.id,
           'longitude': self.longitude,
-          'latitude': self.latitude,
-          'geo': '{}'.format(self.geo),
+          'latitude': self.latitude
         }
 
     def update_geo(self):
         self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
+
+    def new_location(user_id):
+        user = User.query.get(user_id)
+        location = Location(longitude=user.longitude, latitude=user.latitude)
+        location.update_geo()
+        db.session.add(location)
+        db.session.commit()
+        return location
+
+    def locations_in_radius(user_id, rad):
+        user = User.query.get(user_id)
+        locations = Location.query.filter(
+                                      func.ST_DistanceSphere(
+                                        Location.geo,
+                                        user.geo
+                                      ) < rad).all()
+        return locations

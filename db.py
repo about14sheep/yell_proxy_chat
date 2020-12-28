@@ -13,6 +13,7 @@ with app.app_context():
     user1 = User(username='blah', longitude=36.132725, latitude=-86.830465)
     user2 = User(username='blahan', longitude=36.1328855, latitude=-86.8302365)
     user3 = User(username='thatbl', longitude=139.839478, latitude=35.652832)
+    user4 = User(username='hawaiib', longitude=-155.844437, latitude=19.741755)
 
     location1 = Location(longitude=36.132725, latitude=-86.830465)
     location2 = Location(longitude=36.1328855, latitude=-86.8302365)
@@ -27,10 +28,12 @@ with app.app_context():
     user1.update_geo()
     user2.update_geo()
     user3.update_geo()
+    user4.update_geo()
 
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)
+    db.session.add(user4)
     db.session.add(location1)
     db.session.add(location2)
     db.session.add(location3)

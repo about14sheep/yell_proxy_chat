@@ -9,12 +9,12 @@ location_routes = Blueprint('locations', __name__)
 def index():
     if request.method == 'POST':
         data = request.json
-        locations = Location.locations_in_radius(data['user_id'], 152)
+        locations = Location.locations_in_radius(data['user_geo'], 152)
         if locations:
             return {
                 'locations': [location.to_dict() for location in locations]}
         else:
-            location = Location.new_location(data['user_id'])
+            location = Location.new_location(data)
             return {'new_location': location.to_dict()}
     else:
         locations = Location.query.all()
@@ -27,8 +27,7 @@ def location(id):
     return {'locations': location.to_dict()}
 
 
-@location_routes.route('/rad/<rad>')
-def locations_in_range(rad):
-    data = request.json
-    locations = Location.locations_in_radius(data['user_id'], rad)
+@location_routes.route('/rad/<rad>/geo/<geo>')
+def locations_in_range(rad, geo):
+    locations = Location.locations_in_radius(geo, rad)
     return {'locations': [location.to_dict() for location in locations]}

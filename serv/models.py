@@ -17,9 +17,10 @@ class User(db.Model):
     def to_dict(self):
         return {
           'id': self.id,
-          'longitude': self.longitude,
-          'latitude': self.latitude,
-          'username': self.username
+          'user_long': self.longitude,
+          'user_lat': self.latitude,
+          'username': self.username,
+          'user_geo': '{}'.format(self.geo)
         }
 
     def update_geo(self):
@@ -48,19 +49,18 @@ class Location(db.Model):
     def update_geo(self):
         self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
 
-    def new_location(user_id):
-        user = User.query.get(user_id)
-        location = Location(longitude=user.longitude, latitude=user.latitude)
+    def new_location(data):
+        location = Location(
+            longitude=data['user_long'], latitude=data['user_lat'])
         location.update_geo()
         db.session.add(location)
         db.session.commit()
         return location
 
-    def locations_in_radius(user_id, rad):
-        user = User.query.get(user_id)
+    def locations_in_radius(geo, rad):
         locations = Location.query.filter(
                                       func.ST_DistanceSphere(
                                         Location.geo,
-                                        user.geo
+                                        geo
                                       ) < rad).all()
         return locations

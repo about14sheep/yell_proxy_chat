@@ -1,4 +1,4 @@
-from serv.models import Location
+from serv.models.location import Location
 from flask import Blueprint, request, jsonify
 
 

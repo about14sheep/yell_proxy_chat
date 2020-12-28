@@ -1,4 +1,4 @@
-from serv.models import User
+from serv.models.user import User
 from flask import Blueprint, request
 
 user_routes = Blueprint('users', __name__)

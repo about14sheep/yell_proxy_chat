@@ -30,6 +30,10 @@ class User(db.Model):
         self.update_geo()
         db.session.commit()
 
+    def delete_user(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Location(db.Model):
     __tablename__ = 'locations'
@@ -56,6 +60,10 @@ class Location(db.Model):
         db.session.add(location)
         db.session.commit()
         return location
+
+    def delete_location(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def locations_in_radius(geo, rad):
         locations = Location.query.filter(

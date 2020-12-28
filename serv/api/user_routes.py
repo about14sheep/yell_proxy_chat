@@ -10,7 +10,7 @@ def index():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<id>', methods=['GET', 'PUT'])
+@user_routes.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user(id):
     user = User.query.get(id)
     if request.method == 'PUT':
@@ -18,4 +18,7 @@ def user(id):
         user.longitude = data['long']
         user.latitude = data['lat']
         user.update_position()
+    if request.method == 'DELETE':
+        user.delete_user()
+        return {'user_deleted': user.to_dict()}
     return {'user': user.to_dict()}

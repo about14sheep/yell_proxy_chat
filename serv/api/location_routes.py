@@ -21,9 +21,12 @@ def index():
         return {'locations': [location.to_dict() for location in locations]}
 
 
-@location_routes.route('/<id>')
+@location_routes.route('/<id>', methods=['GET', 'DELETE'])
 def location(id):
     location = Location.query.get(id)
+    if request.method == 'DELETE':
+        location.delete_location()
+        return {'location_deleted': location.to_dict()}
     return {'locations': location.to_dict()}
 
 

@@ -1,9 +1,8 @@
 from serv.models import User
 
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import (
-  jwt_required, create_access_token, get_jwt_identity
-)
+from flask_jwt_extended import create_access_token
+
 from flask_login import current_user, login_user, logout_user
 
 session_routes = Blueprint('session', __name__)
@@ -34,7 +33,7 @@ def login():
             return jsonify({'error_msg': 'No user with that email'}), 401
         elif not user.check_password(password):
             return jsonify({'error_msg': 'Password is incorrect'}), 401
-    elif request.method == 'POST':
+    if request.method == 'POST':
         username = request.json.get('username', None)
         if not username:
             return jsonify({'error_msg': 'Missing username parameter'})

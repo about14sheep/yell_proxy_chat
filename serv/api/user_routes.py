@@ -14,9 +14,14 @@ def index():
 def user(id):
     user = User.query.get(id)
     if request.method == 'PUT':
-        data = request.json
-        user.longitude = data['long']
-        user.latitude = data['lat']
+        longitude = request.json.get('user_long', None)
+        latitude = request.json.get('user_lat', None)
+        if not longitude or not latitude:
+            return jsonify(
+                    {'error_msg': 'Need longitude/latitude for user position'}
+                    ), 400
+        user.longitude = longitude
+        user.latitude = latitude
         user.update_position()
     if request.method == 'DELETE':
         user.delete_user()

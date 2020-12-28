@@ -75,17 +75,17 @@ class Location(db.Model):
     def update_geo(self):
         self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
 
-    def new_location(data):
+    def delete_location(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def new_location(longitude, latitude):
         location = Location(
-            longitude=data['user_long'], latitude=data['user_lat'])
+            longitude=longitude, latitude=latitude)
         location.update_geo()
         db.session.add(location)
         db.session.commit()
         return location
-
-    def delete_location(self):
-        db.session.delete(self)
-        db.session.commit()
 
     def locations_in_radius(geo, rad):
         locations = Location.query.filter(

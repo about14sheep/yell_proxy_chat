@@ -1,5 +1,5 @@
 from serv.models import Location
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 
 location_routes = Blueprint('locations', __name__)
@@ -8,13 +8,20 @@ location_routes = Blueprint('locations', __name__)
 @location_routes.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        data = request.json
-        locations = Location.locations_in_radius(data['user_geo'], 152)
+        geo = request.json.get('user_geo', None)
+        if not geo:
+            return jsonify({'error_msg': 'Need location geo'}), 400
+        locations = Location.locations_in_radius(geo, 152)
         if locations:
             return {
                 'locations': [location.to_dict() for location in locations]}
         else:
-            location = Location.new_location(data)
+            longitude = request.json.get('user_long', None)
+            latitude = request.json.get('user_lat', None)
+            if not longitude or not latitude:
+                return jsonify(
+                    {'error_msg': 'Need longitude/latitude for new location'})
+            location = Location.new_location(longitude, latitude)
             return {'new_location': location.to_dict()}
     else:
         locations = Location.query.all()

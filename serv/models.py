@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from geoalchemy2 import Geometry
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
+from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
@@ -69,7 +69,8 @@ class Location(db.Model):
 
     @classmethod
     def delete_expired(cls):
-        limit = datetime.now() - datetime.timedelta(minutes=5)
+        limit = datetime.now() - timedelta(minutes=5)
+        print(limit)
         cls.query.filter(cls.timestamp >= limit).delete()
         db.session.commit()
 
@@ -77,7 +78,8 @@ class Location(db.Model):
         return {
             'id': self.id,
             'longitude': self.longitude,
-            'latitude': self.latitude
+            'latitude': self.latitude,
+            'timestamp': self.timestamp
         }
 
     def update_geo(self):
@@ -85,6 +87,10 @@ class Location(db.Model):
 
     def delete_location(self):
         db.session.delete(self)
+        db.session.commit()
+
+    def update_timestamp(self):
+        self.timestamp = datetime.utcnow()
         db.session.commit()
 
     def new_location(longitude, latitude):

@@ -41,3 +41,9 @@ def location(id):
 def locations_in_range(rad, geo):
     locations = Location.locations_in_radius(geo, rad)
     return {'locations': [location.to_dict() for location in locations]}
+
+
+@location_routes.route('/cleanup/all')
+def clean_locations():
+    Location.delete_expired()
+    return jsonify({'msg': 'Cleanup initiated'})

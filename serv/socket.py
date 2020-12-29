@@ -6,6 +6,7 @@ from .models.user import User
 
 class WebSocket(Namespace):
     def on_join(self, message):
+        print('room joined', message)
         join_room(message['location_id'])
         active_users = Location.join_user_to_location(
                   message['location_id'], User.get_user(message['user_id']))
@@ -18,7 +19,7 @@ class WebSocket(Namespace):
         Location.remove_user_from_location(
                   message['location_id'], User.get_user(message['user_id']))
         emit('leave_response',
-             {'data': message['user_id'], room=message['location_id']})
+             {'data': message['user_id']}, room=message['location_id'])
 
     def on_yell(self, message):
         Location.update_timestamp_for_location(message['location_id'])

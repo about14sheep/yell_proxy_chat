@@ -16,6 +16,7 @@ flask-login = "*"
 flask-jwt-extended = "*"
 flask-cors = "*"
 flask-socketio = "*"
+python-socketio = {extras = ["client"], version = "*"}
 
 [requires]
 python_version = "3.8"

@@ -45,8 +45,10 @@ class Location(db.Model):
     @classmethod
     def join_user_to_location(cls, id, user):
         location = cls.get_location(id)
+        active_users = location.users
         location.users.append(user)
         db.session.commit()
+        return active_users
 
     @classmethod
     def remove_user_from_location(cls, id, user):

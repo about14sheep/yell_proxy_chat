@@ -1,5 +1,4 @@
 from serv.models.location import Location
-from serv.models.user import User
 from flask import Blueprint, request, jsonify
 
 
@@ -30,17 +29,12 @@ def index():
         return {'locations': [location.to_dict() for location in locations]}
 
 
-@location_routes.route('/<id>', methods=['GET', 'DELETE', 'PUT'])
+@location_routes.route('/<id>', methods=['GET', 'DELETE'])
 def location(id):
     location = Location.get_location(id)
     if request.method == 'DELETE':
         location.delete_location()
         return {'location_deleted': location.to_dict()}
-    if request.method == 'PUT':
-        user_id = request.json.get('user_id', None)
-        user = User.get_user(user_id)
-        location.users.append(user)
-        location.commit_location()
     return {'locations': location.to_dict()}
 
 

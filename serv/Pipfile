@@ -16,6 +16,7 @@ geoalchemy2 = "*"
 flask-login = "*"
 flask-jwt-extended = "*"
 flask-cors = "*"
+flask-socketio = "*"
 
 [requires]
 python_version = "3.8"

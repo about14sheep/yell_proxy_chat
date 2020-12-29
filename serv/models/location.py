@@ -33,6 +33,18 @@ class Location(db.Model):
     def get_location(cls, id):
         return cls.query.get(id)
 
+    @classmethod
+    def join_user_to_location(cls, id, user):
+        location = cls.query.get(id)
+        location.users.append(user)
+        db.session.commit()
+
+    @classmethod
+    def remove_user_from_location(cls, id, user):
+        location = cls.query.get(id)
+        location.users.remove(user)
+        db.session.commit()
+
     def delete_location(self):
         db.session.delete(self)
         db.session.commit()

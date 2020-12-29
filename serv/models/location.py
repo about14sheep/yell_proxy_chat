@@ -12,6 +12,8 @@ class Location(db.Model):
     geo = db.Column(Geometry(geometry_type="POINT"))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+    users = db.relationship('User')
+
     @classmethod
     def delete_expired(cls):
         limit = datetime.now() - timedelta(minutes=5)
@@ -27,6 +29,10 @@ class Location(db.Model):
         db.session.commit()
         return location
 
+    @classmethod
+    def get_location(cls, id):
+        return cls.query.get(id)
+
     def delete_location(self):
         db.session.delete(self)
         db.session.commit()
@@ -37,6 +43,9 @@ class Location(db.Model):
 
     def update_geo(self):
         self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
+
+    def commit_location(self):
+        db.session.commit()
 
     def locations_in_radius(geo, rad):
         locations = Location.query.filter(
@@ -51,5 +60,6 @@ class Location(db.Model):
             'id': self.id,
             'longitude': self.longitude,
             'latitude': self.latitude,
-            'timestamp': self.timestamp
+            'timestamp': self.timestamp,
+            'users': [user.to_dict() for user in self.users]
         }

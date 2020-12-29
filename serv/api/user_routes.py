@@ -12,7 +12,7 @@ def index():
 
 @user_routes.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user(id):
-    user = User.query.get(id)
+    user = User.get_user(id)
     if request.method == 'PUT':
         longitude = request.json.get('user_long', None)
         latitude = request.json.get('user_lat', None)

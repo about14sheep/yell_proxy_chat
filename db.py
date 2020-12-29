@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash
 
-from serv.models import User, Location
+from serv.models.location import Location
+from serv.models.user import User
 from serv import app, db
 
 

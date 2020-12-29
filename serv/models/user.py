@@ -14,6 +14,12 @@ class User(db.Model):
     latitude = db.Column(db.Float)
     geo = db.Column(Geometry(geometry_type="POINT"))
 
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+
+    @classmethod
+    def get_user(cls, id):
+        return cls.query.get(id)
+
     @property
     def password(self):
         return self.hashed_password

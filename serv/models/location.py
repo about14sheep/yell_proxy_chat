@@ -18,16 +18,14 @@ class Location(db.Model):
         cls.query.filter(cls.timestamp >= limit).delete()
         db.session.commit()
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'longitude': self.longitude,
-            'latitude': self.latitude,
-            'timestamp': self.timestamp
-        }
-
-    def update_geo(self):
-        self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
+    @classmethod
+    def new_location(cls, longitude, latitude):
+        location = cls(
+            longitude=longitude, latitude=latitude)
+        location.update_geo()
+        db.session.add(location)
+        db.session.commit()
+        return location
 
     def delete_location(self):
         db.session.delete(self)
@@ -37,13 +35,8 @@ class Location(db.Model):
         self.timestamp = datetime.utcnow()
         db.session.commit()
 
-    def new_location(longitude, latitude):
-        location = Location(
-            longitude=longitude, latitude=latitude)
-        location.update_geo()
-        db.session.add(location)
-        db.session.commit()
-        return location
+    def update_geo(self):
+        self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
 
     def locations_in_radius(geo, rad):
         locations = Location.query.filter(
@@ -52,3 +45,11 @@ class Location(db.Model):
                 geo
             ) < rad).all()
         return locations
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'longitude': self.longitude,
+            'latitude': self.latitude,
+            'timestamp': self.timestamp
+        }

@@ -25,19 +25,6 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'user_long': self.longitude,
-            'user_lat': self.latitude,
-            'username': self.username,
-            'session_token': self.session_token,
-            'user_geo': '{}'.format(self.geo)
-        }
-
-    def update_geo(self):
-        self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
-
     def update_position(self):
         self.update_geo()
         self.commit_user()
@@ -51,3 +38,16 @@ class User(db.Model):
 
     def commit_user(self):
         db.session.commit()
+
+    def update_geo(self):
+        self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_long': self.longitude,
+            'user_lat': self.latitude,
+            'username': self.username,
+            'session_token': self.session_token,
+            'user_geo': '{}'.format(self.geo)
+        }

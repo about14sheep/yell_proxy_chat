@@ -20,7 +20,8 @@ def index():
             latitude = request.json.get('user_lat', None)
             if not longitude or not latitude:
                 return jsonify(
-                    {'error_msg': 'Need longitude/latitude for new location'})
+                    {'error_msg': 'Need longitude/latitude for new location'}
+                    ), 400
             location = Location.new_location(longitude, latitude)
             return {'new_location': location.to_dict()}
     else:

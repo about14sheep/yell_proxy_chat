@@ -25,7 +25,7 @@ def login():
     if not email:
         return jsonify({'error_msg': 'Missing email parameter'}), 400
     if not password:
-        return jsonify({'error_msg': 'Missing password parameter'})
+        return jsonify({'error_msg': 'Missing password parameter'}), 400
 
     if request.method == 'PUT':
         user = User.query.filter(User.email == email).first()
@@ -36,7 +36,7 @@ def login():
     if request.method == 'POST':
         username = request.json.get('username', None)
         if not username:
-            return jsonify({'error_msg': 'Missing username parameter'})
+            return jsonify({'error_msg': 'Missing username parameter'}), 400
         user = User(username=username, email=email)
         user.password = password
         user.add_user()

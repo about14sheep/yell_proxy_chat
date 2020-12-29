@@ -30,6 +30,15 @@ class Location(db.Model):
         return location
 
     @classmethod
+    def locations_in_radius(cls, geo, rad):
+        locations = cls.query.filter(
+            func.ST_DistanceSphere(
+                cls.geo,
+                geo
+            ) < rad).all()
+        return locations
+
+    @classmethod
     def get_location(cls, id):
         return cls.query.get(id)
 
@@ -62,14 +71,6 @@ class Location(db.Model):
 
     def commit_location(self):
         db.session.commit()
-
-    def locations_in_radius(geo, rad):
-        locations = Location.query.filter(
-            func.ST_DistanceSphere(
-                Location.geo,
-                geo
-            ) < rad).all()
-        return locations
 
     def to_dict(self):
         return {

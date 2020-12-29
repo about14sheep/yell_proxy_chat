@@ -48,8 +48,10 @@ class Location(db.Model):
     @classmethod
     def update_timestamp_for_location(cls, id):
         location = cls.get_location(id)
-        location.timestamp = datetime.utcnow()
-        db.session.commit()
+        limit = datetime.now() - timedelta(minutes=1)
+        if location.timestamp >= limit:
+            location.timestamp = datetime.utcnow()
+            db.session.commit()
 
     def delete_location(self):
         db.session.delete(self)

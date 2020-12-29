@@ -35,22 +35,24 @@ class Location(db.Model):
 
     @classmethod
     def join_user_to_location(cls, id, user):
-        location = cls.query.get(id)
+        location = cls.get_location(id)
         location.users.append(user)
         db.session.commit()
 
     @classmethod
     def remove_user_from_location(cls, id, user):
-        location = cls.query.get(id)
+        location = cls.get_location(id)
         location.users.remove(user)
+        db.session.commit()
+
+    @classmethod
+    def update_timestamp_for_location(cls, id):
+        location = cls.get_location(id)
+        location.timestamp = datetime.utcnow()
         db.session.commit()
 
     def delete_location(self):
         db.session.delete(self)
-        db.session.commit()
-
-    def update_timestamp(self):
-        self.timestamp = datetime.utcnow()
         db.session.commit()
 
     def update_geo(self):

@@ -10,11 +10,18 @@ class User(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     session_token = db.Column(db.String(500))
-    longitude = db.Column(db.Float)
-    latitude = db.Column(db.Float)
-    geo = db.Column(Geometry(geometry_type="POINT"))
 
-    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    user_totem = db.relationship('Totem', backref='user')
+
+    authored_emotes = db.relationship('Emote', backref='author')
+
+    emotes = db.relationship('Emote',
+                             secondary=emotes, lazy='subquery',
+                             backref=db.backref('users', lazy=True))
+
+    totem_skins = db.relationship('Totem_Skin',
+                                  secondary=user_totem_skins, lazy='subquery',
+                                  backref=db.backref('users', lazy=True))
 
     @classmethod
     def get_user(cls, id):
@@ -31,10 +38,6 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def update_position(self):
-        self.update_geo()
-        self.commit_user()
-
     def delete_user(self):
         db.session.delete(self)
         self.commit_user()
@@ -45,15 +48,13 @@ class User(db.Model):
     def commit_user(self):
         db.session.commit()
 
-    def update_geo(self):
-        self.geo = 'POINT({} {})'.format(self.longitude, self.latitude)
-
     def to_dict(self):
         return {
             'id': self.id,
-            'user_long': self.longitude,
-            'user_lat': self.latitude,
             'username': self.username,
+            'email': self.email,
             'session_token': self.session_token,
-            'user_geo': '{}'.format(self.geo)
+            'authored_emotes': [emote.to_dict() for emote in self.authored_emotes],  # noqa
+            'emotes': [emote.to_dict() for emote in self.emotes],
+            'totem_skins': [skin.to_dict() for skin in self.totem_skins]
         }

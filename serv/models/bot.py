@@ -22,5 +22,9 @@ class Bot(db.Model):
         return {
           'id': self.id,
           'name': self.name,
-          'bot_key': self.bot_key
+          'bot_key': self.bot_key,
+          'totems': [{
+                      'id': totem.id,
+                      'totem_skin_id': totem.totem_skin_id
+                      } for totem in self.totems]
         }

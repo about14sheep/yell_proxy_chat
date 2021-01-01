@@ -1,11 +1,23 @@
 from . import db
 
+follows = db.Table('follows',
+                   db.Column('user_id', db.Integer,
+                             db.ForeignKey('users.id'), primary_key=True),
+                   db.Column('totem_id', db.Integer,
+                             db.ForeignKey('totems.id'), primary_key=True))
+
+bots = db.Table('totem_bots',
+                db.Column('bot_id', db.Integer,
+                          db.ForeignKey('bots.id'), primary_key=True),
+                db.Column('totem_id', db.Integer,
+                          db.ForeignKey('totems.id'), primary_key=True))
+
 
 class Totem(db.Model):
     __tablename__ = 'totems'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', nullable=False))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     totem_skin_id = db.Column(
         db.Integer, db.ForeignKey('totem_skins.id'), nullable=False)
 

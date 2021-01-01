@@ -1,5 +1,19 @@
-from . import db, Geometry
+from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+
+emotes = db.Table('user_emotes',
+                  db.Column('user_id', db.Integer,
+                            db.ForeignKey('users.id'), primary_key=True),
+                  db.Column('emote_id', db.Integer,
+                            db.ForeignKey('emotes.id'), primary_key=True))
+
+user_totem_skins = db.Table('user_totem_skins',
+                            db.Column('user_id', db.Integer,
+                                      db.ForeignKey('users.id'),
+                                      primary_key=True),
+                            db.Column('totem_skin_id', db.Integer,
+                                      db.ForeignKey('totem_skins.id'),
+                                      primary_key=True))
 
 
 class User(db.Model):

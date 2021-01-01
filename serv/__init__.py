@@ -3,7 +3,6 @@ from .config import Config
 from .socket import WebSocket
 
 from .api.user_routes import user_routes
-from .api.location_routes import location_routes
 from .api.session_routes import session_routes
 
 from flask import Flask
@@ -24,7 +23,6 @@ db.init_app(app)
 CORS(app)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
-app.register_blueprint(location_routes, url_prefix='/api/locations')
 app.register_blueprint(session_routes, url_prefix='/api/session')
 
 if __name__ == '__main__':

@@ -13,5 +13,6 @@ class Emote(db.Model):
         return {
           'id': self.id,
           'image_url': self.image_url,
-          'author_id': self.author_id
+          'author': self.author.to_dict(),
+          'collectors': [user.to_dict() for user in self.users]
         }

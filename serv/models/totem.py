@@ -30,7 +30,7 @@ class Totem(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
+            'user': self.user.to_dict(),
             'totem_skin_id': self.totem_skin_id,
             'bots': [bot.to_dict() for bot in self.bots],
             'followers': [user.to_dict() for user in self.followers]

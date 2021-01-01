@@ -70,5 +70,6 @@ class User(db.Model):
             'session_token': self.session_token,
             'authored_emotes': [emote.to_dict() for emote in self.authored_emotes],  # noqa
             'emotes': [emote.to_dict() for emote in self.emotes],
-            'totem_skins': [skin.to_dict() for skin in self.totem_skins]
+            'totem_skins': [skin.to_dict() for skin in self.totem_skins],
+            'followed_totems': [totem.to_dict() for totem in self.followed_totems]  # noqa
         }

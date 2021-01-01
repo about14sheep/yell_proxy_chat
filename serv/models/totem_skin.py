@@ -12,5 +12,7 @@ class Totem_Skin(db.Model):
     def to_dict(self):
         return {
           'id': self.id,
-          'image_url': self.image_url
+          'image_url': self.image_url,
+          'totems': [totem.to_dict() for totem in self.totems],
+          'collectors': [user.to_dict() for user in self.users]
         }

@@ -11,4 +11,4 @@ def index():
 
 @totem_skin_routes.route('/<id>')
 def get_totem_skin(id):
-    return Totem_Skin.get_skin(id)
+    return Totem_Skin.get_skin_by_id(id)

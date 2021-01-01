@@ -11,4 +11,4 @@ def index():
 
 @user_routes.route('/<id>')
 def user(id):
-    return User.get_user(id)
+    return User.get_user_by_id(id)

@@ -11,4 +11,4 @@ def index():
 
 @totem_routes.route('/<id>')
 def get_totem(id):
-    return Totem.get_totem(id)
+    return Totem.get_totem_by_id(id)

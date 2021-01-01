@@ -15,7 +15,7 @@ class Emote(db.Model):
         return {'emotes': [emote.to_dict() for emote in emotes]}
 
     @classmethod
-    def get_emote(cls, id):
+    def get_emote_by_id(cls, id):
         emote = cls.query.get(id)
         return {'emote': emote.to_dict()}
 

@@ -14,7 +14,7 @@ class Bot(db.Model):
         return {'bots': [bot.to_dict() for bot in bots]}
 
     @classmethod
-    def get_bot(cls, id):
+    def get_bot_by_id(cls, id):
         bot = cls.query.get(id)
         return {'bot': bot.to_dict()}
 

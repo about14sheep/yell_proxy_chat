@@ -33,7 +33,7 @@ class Totem(db.Model):
         return {'totems': [totem.to_dict() for totem in totems]}
 
     @classmethod
-    def get_totem(cls, id):
+    def get_totem_by_id(cls, id):
         totem = cls.query.get(id)
         return {'totem': totem.to_dict()}
 

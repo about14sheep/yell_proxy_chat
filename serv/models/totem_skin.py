@@ -15,7 +15,7 @@ class Totem_Skin(db.Model):
         return {'totem_skins': [skin.to_dict() for skin in skins]}
 
     @classmethod
-    def get_skin(cls, id):
+    def get_skin_by_id(cls, id):
         skin = cls.query.get(id)
         return {'totem_skin': skin.to_dict()}
 

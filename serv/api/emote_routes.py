@@ -11,4 +11,4 @@ def index():
 
 @emote_routes.route('/<id>')
 def get_emote(id):
-    return Emote.get_emote(id)
+    return Emote.get_emote_by_id(id)

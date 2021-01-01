@@ -43,7 +43,7 @@ class User(db.Model):
         return {'users': [user.to_dict() for user in users]}
 
     @classmethod
-    def get_user(cls, id):
+    def get_user_by_id(cls, id):
         user = cls.query.get(id)
         return {'user': user.to_dict()}
 

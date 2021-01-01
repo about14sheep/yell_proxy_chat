@@ -11,4 +11,4 @@ def index():
 
 @bot_routes.route('/<id>')
 def get_bot(id):
-    return Bot.get_bot(id)
+    return Bot.get_bot_by_id(id)

@@ -38,8 +38,14 @@ class User(db.Model):
                                   backref=db.backref('users', lazy=True))
 
     @classmethod
+    def get_all_users(cls):
+        users = cls.query.all()
+        return {'users': [user.to_dict() for user in users]}
+
+    @classmethod
     def get_user(cls, id):
-        return cls.query.get(id)
+        user = cls.query.get(id)
+        return {'user': user.to_dict()}
 
     @property
     def password(self):
@@ -70,6 +76,5 @@ class User(db.Model):
             'session_token': self.session_token,
             'authored_emotes': [emote.to_dict() for emote in self.authored_emotes],  # noqa
             'emotes': [emote.to_dict() for emote in self.emotes],
-            'totem_skins': [skin.to_dict() for skin in self.totem_skins],
-            'followed_totems': [totem.to_dict() for totem in self.followed_totems]  # noqa
+            'totem_skins': [skin.to_dict() for skin in self.totem_skins]
         }

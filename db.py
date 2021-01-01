@@ -74,3 +74,25 @@ with app.app_context():
     user3.totem_skins.append(totem_skin1)
     user3.totem_skins.append(totem_skin2)
     user3.totem_skins.append(totem_skin3)
+
+    db.session.add(user1)
+    db.session.add(user2)
+    db.session.add(user3)
+
+    db.session.add(bot1)
+    db.session.add(bot2)
+    db.session.add(bot3)
+
+    db.session.add(totem1)
+    db.session.add(totem2)
+    db.session.add(totem3)
+
+    db.session.add(emote1)
+    db.session.add(emote2)
+    db.session.add(emote3)
+
+    db.session.add(totem_skin1)
+    db.session.add(totem_skin2)
+    db.session.add(totem_skin3)
+
+    db.session.commit()

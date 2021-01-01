@@ -27,6 +27,16 @@ class Totem(db.Model):
     followers = db.relationship('User', secondary=follows, lazy='subquery',
                                 backref=db.backref('followed_totems'))
 
+    @classmethod
+    def get_all_totems(cls):
+        totems = cls.query.all()
+        return {'totems': [totem.to_dict() for totem in totems]}
+
+    @classmethod
+    def get_totem(cls, id):
+        totem = cls.query.get(id)
+        return {'totem': totem.to_dict()}
+
     def to_dict(self):
         return {
             'id': self.id,

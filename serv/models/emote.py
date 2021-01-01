@@ -9,10 +9,18 @@ class Emote(db.Model):
     author_id = db.Column(
                       db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+    @classmethod
+    def get_all_emotes(cls):
+        emotes = cls.query.all()
+        return {'emotes': [emote.to_dict() for emote in emotes]}
+
+    @classmethod
+    def get_emote(cls, id):
+        emote = cls.query.get(id)
+        return {'emote': emote.to_dict()}
+
     def to_dict(self):
         return {
           'id': self.id,
-          'image_url': self.image_url,
-          'author': self.author.to_dict(),
-          'collectors': [user.to_dict() for user in self.users]
+          'image_url': self.image_url
         }

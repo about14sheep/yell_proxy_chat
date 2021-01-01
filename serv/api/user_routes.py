@@ -1,29 +1,14 @@
+from flask import Blueprint
 from serv.models.user import User
-from flask import Blueprint, request
 
 user_routes = Blueprint('users', __name__)
 
 
-@user_routes.route('/')
+@user_routes.route('')
 def index():
-    users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
+    return User.get_all_users()
 
 
-@user_routes.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
+@user_routes.route('/<id>')
 def user(id):
-    user = User.get_user(id)
-    if request.method == 'PUT':
-        longitude = request.json.get('user_long', None)
-        latitude = request.json.get('user_lat', None)
-        if not longitude or not latitude:
-            return jsonify(
-                    {'error_msg': 'Need longitude/latitude for user position'}
-                    ), 400
-        user.longitude = longitude
-        user.latitude = latitude
-        user.update_position()
-    if request.method == 'DELETE':
-        user.delete_user()
-        return {'user_deleted': user.to_dict()}
-    return {'user': user.to_dict()}
+    return User.get_user(id)

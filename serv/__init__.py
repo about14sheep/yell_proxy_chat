@@ -4,6 +4,10 @@ from .socket import WebSocket
 
 from .api.user_routes import user_routes
 from .api.session_routes import session_routes
+from .api.totem_routes import totem_routes
+from .api.totem_skin_routes import totem_skin_routes
+from .api.emote_routes import emote_routes
+from .api.bot_routes import bot_routes
 
 from flask import Flask
 from flask_login import LoginManager
@@ -24,6 +28,11 @@ CORS(app)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session_routes, url_prefix='/api/session')
+app.register_blueprint(totem_routes, url_prefix='/api/totems')
+app.register_blueprint(totem_skin_routes, url_prefix='/api/totem_skins')
+app.register_blueprint(emote_routes, url_prefix='/api/emotes')
+app.register_blueprint(bot_routes, url_prefix='/api/bots')
+
 
 if __name__ == '__main__':
     socketio.run(app)

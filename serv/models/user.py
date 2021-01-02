@@ -58,10 +58,6 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def delete_user(self):
-        db.session.delete(self)
-        self.commit_user()
-
     def add_user(self):
         db.session.add(self)
 

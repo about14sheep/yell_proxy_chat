@@ -1,1 +1,1 @@
-proximity chat redis implementation using websockets, with sql database and react client. Modeled after twitch.tv chat.
+Proximity chat Redis implementation using WebSockets, with SQL database and React client. Modeled after twitch.tv chat.

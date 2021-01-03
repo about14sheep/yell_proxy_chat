@@ -6,8 +6,10 @@ from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 
 from .models import db
+from .models.user import User
 from .config import Config
-from websocket.login import Login_Socket
+
+from .websocket.home import Home
 
 from .api.user_routes import user_routes
 from .api.session_routes import session_routes
@@ -25,7 +27,7 @@ app.config.from_object(Config)
 
 login_manager.init_app(app)
 jwt = JWTManager(app)
-socketio.on_namespace(Login_Socket('/login'))
+socketio.on_namespace(Home('/home'))
 db.init_app(app)
 CORS(app)
 
@@ -35,6 +37,18 @@ app.register_blueprint(totem_routes, url_prefix='/api/totems')
 app.register_blueprint(totem_skin_routes, url_prefix='/api/totem_skins')
 app.register_blueprint(emote_routes, url_prefix='/api/emotes')
 app.register_blueprint(bot_routes, url_prefix='/api/bots')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id is not None:
+        return User.get_user_by_id(int(user_id))
+    return None
+
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return {'message': 'youre trash kid'}
 
 
 if __name__ == '__main__':

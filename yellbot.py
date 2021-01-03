@@ -3,15 +3,15 @@ import socketio
 sio = socketio.Client()
 
 
-sio.connect('http://127.0.0.1:5000', namespaces=['/chat'])
+sio.connect('http://127.0.0.1:5000', namespaces=['/home'])
 
 
-@sio.on('connect', namespace='/chat')
+@sio.on('connect', namespace='/home')
 def on_connect():
-    print('yellbot has entered the chat')
-    sio.emit('join', {'user_id': 1, 'location_id': 1}, namespace='/chat')
+    sio.emit('auth',
+             {'message': {'user_id': 1}}, namespace='/home')
 
 
-@sio.on('join_response', namespace='/chat')
-def on_join_response(data):
-    print('Room joined, server returned: ', data)
+@sio.on('auth_response', namespace='/home')
+def on_auth(data):
+    print(data)

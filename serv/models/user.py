@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db, login_manager
 
+from . import db
 
 emotes = db.Table('user_emotes',
                   db.Column('user_id', db.Integer,
@@ -88,15 +88,3 @@ class User(db.Model, UserMixin):
                                  'totem_skin_id': totem.totem_skin_id
                                  } for totem in self.followed_totems]
         }
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    if user_id is not None:
-        return User.get_user_by_id(int(user_id))
-    return None
-
-
-@login_manager.unauthorized_handler
-def unauthorized():
-    return {'message': 'youre trash kid'}

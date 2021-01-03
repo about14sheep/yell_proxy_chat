@@ -3,7 +3,7 @@ from serv.models.user import User
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
 
-from flask_login import current_user, login_user, logout_user
+from flask_login import login_user, logout_user
 
 session_routes = Blueprint('session', __name__)
 
@@ -17,6 +17,7 @@ def login():
         user = User.query.get(id)
         user.session_token = None
         user.commit_user()
+        logout_user(user)
         return jsonify({'msg': 'Session token removed'})
 
     email = request.json.get('user_email', None)
@@ -43,5 +44,6 @@ def login():
 
     access_token = create_access_token(identity=email)
     user.session_token = access_token
+    login_user(user)
     user.commit_user()
     return {'user': user.to_dict()}

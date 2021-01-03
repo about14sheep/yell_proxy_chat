@@ -7,7 +7,7 @@ from flask_socketio import SocketIO
 
 from .models import db
 from .config import Config
-from .socket import WebSocket
+from websocket.login import Login_Socket
 
 from .api.user_routes import user_routes
 from .api.session_routes import session_routes
@@ -25,7 +25,7 @@ app.config.from_object(Config)
 
 login_manager.init_app(app)
 jwt = JWTManager(app)
-socketio.on_namespace(WebSocket('/chat'))
+socketio.on_namespace(Login_Socket('/login'))
 db.init_app(app)
 CORS(app)
 

@@ -5,7 +5,7 @@ from . import authenticated_only
 
 class Home(Namespace):
     @authenticated_only
-    def on_connect(self, message):
+    def on_connect(self):
         emit('auth_response',
              {'message': '{} has joined'.format(current_user.username)},
              broadcast=True)

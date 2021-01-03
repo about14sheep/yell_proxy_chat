@@ -93,7 +93,7 @@ class User(db.Model, UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     if user_id is not None:
-        return User.get_user_by_id(user_id)
+        return User.get_user_by_id(int(user_id))
     return None
 
 

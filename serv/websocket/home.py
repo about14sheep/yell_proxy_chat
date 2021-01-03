@@ -1,4 +1,4 @@
-from flask_socketio import Namespace
+from flask_socketio import Namespace, emit
 
 from . import authenticated_only
 

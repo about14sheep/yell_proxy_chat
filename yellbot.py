@@ -15,3 +15,8 @@ def on_connect():
 @sio.on('auth_response', namespace='/home')
 def on_auth(data):
     print(data)
+
+
+@sio.on('redirect', namespace='/home')
+def on_signoff(data):
+    print(data)

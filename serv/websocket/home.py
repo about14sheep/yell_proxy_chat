@@ -10,20 +10,25 @@ class Home(Namespace):
              {'message': 'user connected'})
 
     def on_user_location(self, data):
-        rdb.geoadd(data['region'], data['long'], data['lat'], data['sid'])
+        result_totems = []
+        rdb.delete(data['sid'])
         totems = rdb.georadius(data['region'],
                                data['long'],
                                data['lat'],
-                               2, 'mi')
-        emit('totems_near', {'totems': totems})
+                               2, 'mi', 'withdist')
+        for totem in totems:
+            result_totems.append(totem[0])
+            if totem[-1] <= 1:
+                rdb.sadd(data['sid'], totem[0])
+        emit('totems_near', {'totems': result_totems})
 
     def on_place_totem(self, data):
         rdb.geoadd(data['region'], data['long'], data['lat'],
-                   '{}'.format(data['totem']))
+                   data['totem_id'])
 
     def on_yell(self, data):
-        dist = rdb.geodist(data['region'], data['sid'], data['totem_id'], 'mi')
-        if dist <= 1:
+        ismember = rdb.sismember(data['sid'], data['totem_id'])
+        if ismember == 1:
             emit('yell_response',
                  {'data': {
                      'username': data['username'],

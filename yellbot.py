@@ -8,6 +8,16 @@ sio.connect('http://127.0.0.1:5000', namespaces=['/home'])
 
 @sio.on('connect', namespace='/home')
 def on_connect():
+    # sio.emit('place_totem',
+    #          {
+    #              'lat': 35.652832,
+    #              'long': 139.839478,
+    #              'region': 'tokyo',
+    #              'totem': {
+    #                  'id': 1,
+    #                  'image_url': 'yourmom.png',
+    #              }
+    #          }, namespace='/home')
     sio.emit('user_location',
              {
                  'sid': sio.sid,
@@ -17,10 +27,9 @@ def on_connect():
              }, namespace='/home')
 
 
-@sio.on('auth_response', namespace='/home')
+@sio.on('totems_near', namespace='/home')
 def on_auth(data):
     print(data)
-    sio.emit('success', {'message': 'success'}, namespace='/home')
 
 
 @sio.on('redirect', namespace='/home')

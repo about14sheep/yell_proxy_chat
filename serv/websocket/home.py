@@ -10,11 +10,15 @@ class Home(Namespace):
              {'message': 'user connected'})
 
     def on_user_location(self, data):
-        places = rdb.georadius(data['region'],
+        totems = rdb.georadius(data['region'],
                                data['long'],
                                data['lat'],
                                200, 'km')
-        print(places)
+        emit('totems_near', {'totems': totems})
+
+    def on_place_totem(self, data):
+        rdb.geoadd(data['region'], data['long'], data['lat'],
+                   '{}'.format(data['totem']))
 
     def on_success(self, data):
         print(data)

@@ -25,6 +25,7 @@ class Home(Namespace):
     def on_place_totem(self, data):
         rdb.geoadd(data['region'], data['long'], data['lat'],
                    data['totem_id'])
+        rdb.set('TOTEM_FOR_{}'.format(data['sid']), data['totem_id'])
 
     def on_yell(self, data):
         ismember = rdb.sismember(data['sid'], data['totem_id'])
@@ -41,8 +42,21 @@ class Home(Namespace):
                      'text': 'Get closer to chat!'
                  }})
 
+    def on_channel_details(self, data):
+        lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
+        users_in_chat = rdb.lrange(lname, 0, 9)
+        user_count = rdb.llen(lname)
+        emit('join_response',
+             {'data': {
+                 'users': users_in_chat,
+                 'count': user_count
+             }})
+
     def on_join_channel(self, data):
+        rdb.lpush(lname, data['username'])
         join_room(data['totem_id'])
 
     def on_leave_channel(self, data):
         leave_room(data['totem_id'])
+        lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
+        rdb.lrem(lname, data['username'])

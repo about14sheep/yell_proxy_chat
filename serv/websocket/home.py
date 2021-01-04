@@ -34,6 +34,12 @@ class Home(Namespace):
                      'username': data['username'],
                      'text': data['text']
                  }}, room=data['totem_id'])
+        else:
+            emit('yell_response',
+                 {'data': {
+                     'username': data['username'],
+                     'text': 'Get closer to chat!'
+                 }})
 
     def on_join_channel(self, data):
         join_room(data['totem_id'])

@@ -1,0 +1,20 @@
+{
+  "name": "yell",
+  "version": "1.0.0",
+  "description": "Proximity chat Redis implementation using WebSockets, with SQL database and React client. Modeled after twitch.tv chat.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/about14sheep/yell_proxy_chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/about14sheep/yell_proxy_chat/issues"
+  },
+  "homepage": "https://github.com/about14sheep/yell_proxy_chat#readme"
+}

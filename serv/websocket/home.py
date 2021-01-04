@@ -1,4 +1,4 @@
-from flask_socketio import Namespace, emit
+from flask_socketio import Namespace, emit, join_room, leave_room
 
 from . import rdb, authenticated_only
 
@@ -20,5 +20,8 @@ class Home(Namespace):
         rdb.geoadd(data['region'], data['long'], data['lat'],
                    '{}'.format(data['totem']))
 
-    def on_success(self, data):
-        print(data)
+    def on_join_channel(self, data):
+        join_room(data['totem_id'])
+
+    def on_leave_channel(self, data):
+        leave_room(data['totem_id'])

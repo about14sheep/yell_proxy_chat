@@ -48,7 +48,7 @@ class Home(Namespace):
                      'text': 'Get closer to chat!'
                  }})
 
-    def on_channel_details(self, data):
+    def on_totem_details(self, data):
         lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
         users_in_chat = rdb.lrange(lname, 0, 9)
         user_count = rdb.llen(lname)

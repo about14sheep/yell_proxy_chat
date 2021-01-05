@@ -20,7 +20,6 @@ class Home(Namespace):
             result_totems.append(totem[0])
             if totem[-1] <= 1:
                 rdb.sadd(data['sid'], totem[0])
-        emit('totems_near', {'totems': result_totems})
 
     def on_totem_scan(self, data):
         totems = rdb.georadius(data['region'],

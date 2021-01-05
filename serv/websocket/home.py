@@ -22,6 +22,13 @@ class Home(Namespace):
                 rdb.sadd(data['sid'], totem[0])
         emit('totems_near', {'totems': result_totems})
 
+    def on_totem_scan(self, data):
+        totems = rdb.georadius(data['region'],
+                               data['long'],
+                               data['lat'],
+                               2, 'mi')
+        emit('totems_near', {'totems': totems})
+
     def on_place_totem(self, data):
         rdb.geoadd(data['region'], data['long'], data['lat'],
                    data['totem_id'])

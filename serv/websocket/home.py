@@ -52,7 +52,7 @@ class Home(Namespace):
         lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
         users_in_chat = rdb.lrange(lname, 0, 9)
         user_count = rdb.llen(lname)
-        emit('join_response',
+        emit('totem_details_response',
              {'data': {
                  'users': users_in_chat,
                  'count': user_count

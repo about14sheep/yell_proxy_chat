@@ -1,5 +1,3 @@
-import logging
-
 from flask import Flask
 from flask_login import LoginManager
 from flask_cors import CORS
@@ -24,9 +22,6 @@ app = Flask(__name__)
 login_manager = LoginManager()
 socketio = SocketIO(app)
 app.config.from_object(Config)
-
-logging.basicConfig(level=logging.DEBUG)
-logging.getLogger('flask_cors').level = logging.DEBUG
 
 login_manager.init_app(app)
 socketio.on_namespace(Home('/home'))

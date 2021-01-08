@@ -46,4 +46,4 @@ def login():
     user.session_token = access_token
     login_user(user)
     user.commit_user()
-    return {'user': user.to_dict()}
+    return {'user': user.to_dict()}, 200

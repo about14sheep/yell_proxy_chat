@@ -10,31 +10,25 @@ class Home(Namespace):
              {'message': 'user connected'})
 
     def on_user_location(self, data):
-        result_totems = []
-        rdb.delete(data['sid'])
-        totems = rdb.georadius(data['region'],
-                               data['long'],
-                               data['lat'],
-                               2, 'mi', 'withdist')
-        for totem in totems:
-            result_totems.append(totem[0])
-            if totem[-1] <= 1:
-                rdb.sadd(data['sid'], totem[0])
+        rdb.set_user_totems(data['region'],
+                            data['long'],
+                            data['lat'],
+                            data['user_id'])
 
     def on_totem_scan(self, data):
-        totems = rdb.georadius(data['region'],
-                               data['long'],
-                               data['lat'],
-                               2, 'mi')
+        totems = rdb.get_totems_in_radius(data['region'],
+                                          data['long'],
+                                          data['lat'],
+                                          2)
         emit('totems_near', {'totems': totems})
 
     def on_place_totem(self, data):
-        rdb.geoadd(data['region'], data['long'], data['lat'],
-                   data['totem_id'])
-        rdb.set('TOTEM_FOR_{}'.format(data['sid']), data['totem_id'])
+        rdb.set_totem_location(data['region'], data['long'], data['lat'],
+                               data['totem_id'])
+        rdb.set_user_totem_id(data['user_id'], data['totem_id'])
 
     def on_yell(self, data):
-        ismember = rdb.sismember(data['sid'], data['totem_id'])
+        ismember = rdb.check_can_chat(data['user_id'], data['totem_id'])
         if ismember == 1:
             emit('yell_response',
                  {'data': {
@@ -49,20 +43,13 @@ class Home(Namespace):
                  }})
 
     def on_totem_details(self, data):
-        lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
-        users_in_chat = rdb.lrange(lname, 0, 9)
-        user_count = rdb.llen(lname)
-        emit('totem_details_response',
-             {'data': {
-                 'users': users_in_chat,
-                 'count': user_count
-             }})
+        data = rdb.get_totem_details(data['totem_id'])
+        emit('totem_details_response', {'data': data})
 
     def on_join_channel(self, data):
-        rdb.lpush(lname, data['username'])
+        rdb.user_join_totem(data['user_id'], data['totem_id'])
         join_room(data['totem_id'])
 
     def on_leave_channel(self, data):
+        rdb.user_join_totem(data['user_id'], data['totem_id'])
         leave_room(data['totem_id'])
-        lname = 'USERS_AT_TOTEM_{}'.format(data['totem_id'])
-        rdb.lrem(lname, data['username'])

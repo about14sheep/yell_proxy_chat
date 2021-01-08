@@ -1,10 +1,8 @@
-import redis
 import functools
 from flask_login import current_user
 from flask_socketio import disconnect, emit
 
-
-rdb = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+from serv.redi_db import rdb
 
 
 def authenticated_only(f):

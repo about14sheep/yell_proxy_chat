@@ -8,7 +8,7 @@ from flask_login import login_user, logout_user
 session_routes = Blueprint('session', __name__)
 
 
-@session_routes.route('/login', methods=['POST', 'PUT', 'DELETE'])
+@session_routes.route('', methods=['POST', 'PUT', 'DELETE'])
 def login():
     if not request.is_json:
         return jsonify({'error_msg': 'Missing JSON in request'})
@@ -20,8 +20,8 @@ def login():
         logout_user(user)
         return jsonify({'msg': 'Session token removed'})
 
-    email = request.json.get('user_email', None)
-    password = request.json.get('user_password', None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
 
     if not email:
         return jsonify({'error_msg': 'Missing email parameter'}), 400

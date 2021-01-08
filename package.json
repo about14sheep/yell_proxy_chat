@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/about14sheep/yell_proxy_chat/issues"
   },
-  "homepage": "https://github.com/about14sheep/yell_proxy_chat#readme"
+  "homepage": "https://github.com/about14sheep/yell_proxy_chat#readme",
+  "dependencies": {
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
 }

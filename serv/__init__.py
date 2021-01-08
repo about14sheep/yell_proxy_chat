@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_cors import CORS
@@ -23,11 +25,12 @@ login_manager = LoginManager()
 socketio = SocketIO(app)
 app.config.from_object(Config)
 
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('flask_cors').level = logging.DEBUG
+
 login_manager.init_app(app)
-jwt = JWTManager(app)
 socketio.on_namespace(Home('/home'))
 db.init_app(app)
-CORS(app)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session_routes, url_prefix='/api/session')
@@ -35,6 +38,9 @@ app.register_blueprint(totem_routes, url_prefix='/api/totems')
 app.register_blueprint(totem_skin_routes, url_prefix='/api/totem_skins')
 app.register_blueprint(emote_routes, url_prefix='/api/emotes')
 app.register_blueprint(bot_routes, url_prefix='/api/bots')
+
+jwt = JWTManager(app)
+CORS(app)
 
 
 @login_manager.user_loader

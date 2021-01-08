@@ -2,7 +2,7 @@
 
 The orm used is SQLAlchemy with Flask for routing. Websockets are immplemented using Redis Message Queue to update data in real time. Redis is also used, via websockets, for geospatial calaculations.
 
-One of my main focuses for this project to write performat and scalable code. The biggest step in that direction would be the modularity and ecapsulation of flask/sqlalchemy storage and redis/websocket implementation 
+One of my main focuses for this project is to write performat and scalable code. The biggest step in that direction would be the modularity and ecapsulation of flask/sqlalchemy storage and redis/websocket implementation 
 
 <h3>Db diagram sql</h3>
 <br>

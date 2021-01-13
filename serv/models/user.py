@@ -70,7 +70,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'session_token': self.session_token,
             'authored_emotes': [{
                                  'id': emote.id,
                                  'image_url': emote.image_url

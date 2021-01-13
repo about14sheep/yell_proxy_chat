@@ -1,16 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
-import { Login } from './components/login'
+import Main from './components/main' 
 
+const PivateRoute = ({component: Component, ...rest}) => (
+  <Route {...rest} render={props => (
+    rest.needLogin === true ? <Redirect to='/login' /> : <Component {...props} />
+  )} />
+)
 
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/session'>
-          <Login />
+        <Route path='/'>
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>

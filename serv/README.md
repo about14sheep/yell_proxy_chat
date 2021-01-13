@@ -4,7 +4,7 @@
 
 <p>One of my main focuses for this project is to write performat and scalable code. The biggest step in that direction would be the modularity and ecapsulation of flask/sqlalchemy storage and redis/websocket implementation.</p>
 
-<h3>Redis Map</h3>
+<h2>Redis Map</h2>
 <section>
   <h4>Hashes</h4>
   <ul>
@@ -26,6 +26,6 @@
   </ul>
 </section>
 
-<h3>Db diagram sql</h3>
+<h2>Db diagram sql</h2>
 <br>
 <img src="https://github.com/about14sheep/yell_proxy_chat/blob/master/serv/docs/yell_db.png">

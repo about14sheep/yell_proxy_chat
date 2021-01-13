@@ -46,7 +46,7 @@ export const login = (email, password) => async dispatch => {
   if (res.ok) {
     const {user, token} = await res.json();
     window.localStorage.setItem(TOKEN_KEY, token)
-    window.localStorage.setItem(user, JSON.stringify(user));
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
     dispatch(setUser(user));
     dispatch(setToken(token));
   }

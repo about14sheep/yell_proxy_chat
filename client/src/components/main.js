@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Main(props) {
+function Main() {
   return (
     <h1>welcome to yell</h1>
   )

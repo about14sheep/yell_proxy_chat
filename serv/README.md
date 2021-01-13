@@ -8,8 +8,21 @@
 <section>
   <h4>Hashes</h4>
   <ul>
-    <li>Emote - ID: {image_url, author_id}</li>
-    <li>Totem_Skin - ID: {image_url}</li>
+    <li>User - UserID: { username, user_id, user_image }</li>
+    <li>Emote - EmoteID: { image_url, author_id }</li>
+    <li>Totem_Skin - SkinID: { image_url }</li>
+  </ul>
+</section>
+<section>
+  <h4>Lists</h4>
+  <ul>
+    <li>Users at Totem - TotemID: [user_ids]</li>
+  </ul>
+</section>
+<section>
+  <h4>Geolocation</h4>
+  <ul>
+    <li>Totem - TotemID: { long, lat }</li>
   </ul>
 </section>
 

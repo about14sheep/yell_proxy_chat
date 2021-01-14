@@ -8,15 +8,17 @@
 <section>
   <h4>Hashes</h4>
   <ul>
-    <li>User - UserID: { username, user_id, user_image }</li>
+    <li>User - UserID: { username, user_id }</li>
+    <li>Totem - TotemID: { owner_id, totem_skin_id }</li>
     <li>Emote - EmoteID: { image_url, author_id }</li>
     <li>Totem_Skin - SkinID: { image_url }</li>
   </ul>
 </section>
 <section>
-  <h4>Lists</h4>
+  <h4>Sets</h4>
   <ul>
     <li>Users at Totem - TotemID: [user_ids]</li>
+    <li>Totems near User - UserID: [totem_ids]</li>
   </ul>
 </section>
 <section>

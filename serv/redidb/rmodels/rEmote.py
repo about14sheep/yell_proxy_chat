@@ -16,7 +16,10 @@ class rEmote():
         self.rdb.sadd('S{}'.format(emote_id), user_id)
 
     def SET_get(self, emote_id):
-        return self.smembers('S{}'.format(emote_id))
+        return self.rdb.smembers('S{}'.format(emote_id))
+
+    def SET_del(self, emote_id, user_id):
+        return self.rdb.srem('S{}'.format(emote_id), user_id)
 
     def SET_check(self, emote_id, user_id):
         return self.sismember('S{}'.format(emote_id), user_id)

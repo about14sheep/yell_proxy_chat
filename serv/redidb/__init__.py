@@ -15,6 +15,19 @@ class RediWrap():
         self.emote = rmodels(rdb)
 
     def set_user_totems(self, longitude, latitude, user_id):
+        self.user.SET_purge(user_id)
         totems = self.totem.GEO_radius(longitude, latitude, 1)
         for totem in totems:
             self.user.SET_set(user_id, totem)
+
+    def get_totems_in_radius(self, longitude, latitude, radius):
+        return self.totem.GEO_radius(longitude, latitude, radius)
+
+    def user_join_totem(self, user_id, totem_id):
+        self.totem.SET_set(totem_id, user_id)
+
+    def user_leave_totem(self, user_id, totem_id):
+        self.totem.SET_del(totem_id, user_id)
+
+    def check_can_chat(self, user_id, totem_id):
+        return self.user.SET_check(user_id, totem_id)

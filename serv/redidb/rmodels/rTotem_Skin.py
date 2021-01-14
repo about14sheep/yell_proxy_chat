@@ -12,10 +12,13 @@ class rTotem_Skin():
         return self.rdb.hget('H{}'.format(totem_skin_id))
 
     def SET_set(self, skin_id, user_id):
-        self.rdb.sadd('S{}'.format(totem_skin_id), user_id)
+        self.rdb.sadd('S{}'.format(skin_id), user_id)
 
     def SET_get(self, skin_id):
-        return self.rdb.smembers('S{}'.format(totem_skin_id))
+        return self.rdb.smembers('S{}'.format(skin_id))
+
+    def SET_del(self, skin_id, user_id):
+        self.rdb.srem('S{}'.format(skin_id), user_id)
 
     def SET_check(self, skin_id, user_id):
-        return self.rdb.sismember('S{}'.format(totem_skin_id), user_id)
+        return self.rdb.sismember('S{}'.format(skin_id), user_id)

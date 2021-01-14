@@ -15,14 +15,20 @@ class rTotem():
     def SET_set(self, totem_id, user_id):
         self.rdb.sadd('S{}'.format(totem_id), user_id)
 
-    def SET_check(self, totem_id, user_id):
-        return self.rdb.sismember('S{}'.format(totem_id), user_id)
-
     def SET_get(self, totem_id):
         return self.rdb.smembers('S{}'.format(totem_id))
 
+    def SET_check(self, totem_id, user_id):
+        return self.rdb.sismember('S{}'.format(totem_id), user_id)
+
+    def SET_del(self, totem_id, user_id):
+        self.rdb.srem('S{}'.format(totem_id), user_id)
+
     def SET_count(self, totem_id):
         return self.rdb.scard('S{}'.format(totem_id))
+
+    def SET_purge(self, totem_id):
+        self.rdb.delete('S{}'.format(totem_id))
 
     def GEO_set(self, totem_id, longitude, latitude):
         self.rdb.geoadd('totems', longitude, latitude, totem_id)

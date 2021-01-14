@@ -17,5 +17,11 @@ class rUser():
     def SET_get(self, user_id):
         return self.rdb.smembers('S{}'.format(user_id))
 
+    def SET_del(self, user_id, totem_id):
+        self.rdb.srem('S{}'.format(user_id), totem_id)
+
+    def SET_purge(self, user_id):
+        self.rdb.delete('S{}'.format(user_id))
+
     def SET_check(self, user_id, totem_id):
         return self.rdb.sismember('S{}'.format(user_id), totem_id)

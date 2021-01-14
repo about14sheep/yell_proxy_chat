@@ -4,7 +4,7 @@ from flask_socketio import disconnect, emit
 
 from serv.redidb import RediWrap
 
-rdb = RediWrap('localhost', 6379)
+rw = RediWrap('localhost', 6379)
 
 
 def authenticated_only(f):

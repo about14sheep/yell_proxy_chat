@@ -19,6 +19,8 @@
   <ul>
     <li>Users at Totem - TotemID: [user_ids]</li>
     <li>Totems near User - UserID: [totem_ids]</li>
+    <li>Emote Users - EmoteID: [user_ids]</li>
+    <li>Totem_Skin Users - SkinID: [user_ids]</li>
   </ul>
 </section>
 <section>

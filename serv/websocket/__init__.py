@@ -2,7 +2,9 @@ import functools
 from flask_login import current_user
 from flask_socketio import disconnect, emit
 
-from serv.redi_db import rdb
+from serv.redidb import RediWrap
+
+rdb = RediWrap('localhost', 6379)
 
 
 def authenticated_only(f):

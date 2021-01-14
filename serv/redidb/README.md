@@ -1,6 +1,6 @@
 <h2>Redis Wrapper</h2>
 
-<p>I have assigned a redis datastructure to a certain ID for a totem, emote, totem_skin, and user. The logic of this immplentation lies in the characteristics of the redis data type</p>
+<p>I have assigned a redis datastructure to a certain ID for a totem, emote, totem_skin, and user. The logic of this immplentation resides in the characteristics of the redis data type</p>
 
 <section>
   <h4>Hashes</h4>

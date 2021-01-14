@@ -11,6 +11,18 @@ class RediWrap():
                           decode_responses=True)
         self.totem, self.user, self.totem_skin, self.emote = rmodels(rdb)
 
+    def set_totem(self, totem):
+        self.totem.HASH_set(totem)
+
+    def set_user(self, user):
+        self.user.HASH_set(user)
+
+    def set_totem_skin(self, totem_skin):
+        self.totem_skin.HASH_set(totem_skin)
+
+    def set_emote(self, emote):
+        self.emote.HASH_set(emote)
+
     def get_totem(self, totem_id):
         return self.totem.HASH_get(totem_id)
 
@@ -31,6 +43,10 @@ class RediWrap():
 
     def set_totem_location(self, longitude, latitude, totem_id):
         self.totem.GEO_set(totem_id, longitude, latitude)
+
+    def delete_totem_location(self, totem_id):
+        self.totem.SET_purge(totem_id)
+        self.totem.GEO_del(totem_id)
 
     def get_totems_in_radius(self, longitude, latitude, radius):
         return self.totem.GEO_radius(longitude, latitude, radius)

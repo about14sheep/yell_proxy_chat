@@ -35,3 +35,6 @@ class rTotem():
 
     def GEO_radius(self, longitude, latitude, radius):
         return self.rdb.georadius('totems', longitude, latitude, radius, 'mi')
+
+    def GEO_del(self, totem_id):
+        self.rdb.zrem('totems', totem_id)

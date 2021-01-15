@@ -1,8 +1,10 @@
 import functools
+
 from flask_login import current_user
 from flask_socketio import disconnect, emit
 
 from serv.redidb import RediWrap
+
 
 rw = RediWrap('localhost', 6379)
 

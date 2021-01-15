@@ -10,6 +10,7 @@ from .config import Config
 
 from .websocket.totem_socket import Totem_Socket
 from .websocket.user_socket import User_Socket
+from .websocket.stream_socket import Stream_Socket
 
 from .api.user_routes import user_routes
 from .api.session_routes import session_routes
@@ -27,6 +28,7 @@ app.config.from_object(Config)
 login_manager.init_app(app)
 socketio.on_namespace(Totem_Socket('/totem'))
 socketio.on_namespace(User_Socket('/user'))
+socketio.on_namespace(Stream_Socket('/stream'))
 db.init_app(app)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')

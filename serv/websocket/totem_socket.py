@@ -1,18 +1,20 @@
-from flask_socketio import Namespace, emit
+from flask_socketio import leave_room, join_room
 
-from . import rw, authenticated_only
+from . import Namespace, emit, rw, authenticated_only
 
 
 class Totem_Socket(Namespace):
 
     def on_connect(self):
-        emit('totem_response',
+        emit('totem_connect_response',
              {'data': 'Totem Socket Connected'})
 
     def on_totem_save(self, data):
         rw.set_totem({'owner_id': data['owner_id'],
                       'totem_id': data['totem_id'],
                       'totem_skin_id': data['totem_skin_id']})
+        emit('totem_save_response',
+             {'data': 'Totem {} saved to redis'.format(data['totem_id'])})
 
     def on_totem_get(self, data):
         totem = rw.get_totem(data['totem_id'])
@@ -29,18 +31,15 @@ class Totem_Socket(Namespace):
         rw.set_totem_location(data['longitude'],
                               data['latitude'],
                               data['totem_id'])
+        emit('totem_place_response',
+             {'data': 'Totem {} placed'.format(data['totem_id'])})
 
-    def on_totem_yell(self, data):
-        ismember = rw.check_can_chat(data['user_id'], data['totem_id'])
-        if ismember == 1:
-            emit('yell_response',
-                 {'data': {
-                     'username': data['username'],
-                     'text': data['text']
-                 }}, room=data['totem_id'])
-        else:
-            emit('yell_response',
-                 {'data': {
-                     'username': data['username'],
-                     'text': 'Get closer to chat!'
-                 }})
+    def on_totem_join(self, data):
+        join_room(data['totem_id'])
+        emit('totem_join_response',
+             {'data': 'Connected to totem {}'.format(data['totem_id'])})
+
+    def on_totem_leave(self, data):
+        leave_room(data['totem_id'])
+        emit('totem_leave_response',
+             {'data': 'Disconnected from totem {}'.format(data['totem_id'])})

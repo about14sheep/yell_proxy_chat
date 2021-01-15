@@ -1,7 +1,7 @@
 import functools
 
+from flask_socketio import Namespace, disconnect, emit
 from flask_login import current_user
-from flask_socketio import disconnect, emit
 
 from serv.redidb import RediWrap
 

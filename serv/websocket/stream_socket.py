@@ -7,7 +7,7 @@ class Stream_Socket(Namespace):
         emit('stream_connect_response',
              {'data': 'Stream Connected'})
 
-    def on_yell(self, data):
+    def on_stream_yell(self, data):
         ismember = rw.check_can_chat(data['user_id'], data['totem_id'])
         if ismember == 1:
             emit('yell_response',

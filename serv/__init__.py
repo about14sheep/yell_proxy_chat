@@ -26,10 +26,11 @@ socketio = SocketIO(app)
 app.config.from_object(Config)
 
 login_manager.init_app(app)
+db.init_app(app)
+
 socketio.on_namespace(Totem_Socket('/totem'))
 socketio.on_namespace(User_Socket('/user'))
 socketio.on_namespace(Stream_Socket('/stream'))
-db.init_app(app)
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session_routes, url_prefix='/api/session')

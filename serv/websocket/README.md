@@ -3,7 +3,7 @@
 <p>Using Flask_Socketio Namespaces I am able to seperate the logic into sperate modules for readability. The WebSocket channels will save and get from redis using the RediWrap class imported from redidb</p>
 
 
-<h2>Sockets and Requests</h2>
+<h2>Namespaces and Request Calls</h2>
 
 <section>
   <h4>Totem Socket</h4>

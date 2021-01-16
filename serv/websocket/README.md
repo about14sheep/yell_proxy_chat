@@ -1,6 +1,6 @@
 <h1>WebSocket</h1>
 
-<p>Using Flask_Socketio Namespaces I am able to seperate the logic into sperate modules for readability. The WebSocket channels will save and get from redis using the RediWrap class imported from <a href='https://github.com/about14sheep/yell_proxy_chat/tree/master/serv/redidb'>redidb</a></p>
+<p>Using Flask_Socketio Namespaces I am able to seperate the logic into seperate modules for readability. The WebSocket channels will save and get from redis using the RediWrap class imported from <a href='https://github.com/about14sheep/yell_proxy_chat/tree/master/serv/redidb'>redidb</a></p>
 
 
 <h2>Namespaces and Request Calls</h2>

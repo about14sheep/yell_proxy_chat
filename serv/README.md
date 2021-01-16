@@ -7,6 +7,9 @@
 <h2>Redis</h2>
 <p>The folder redidb holds the redis wrapper and information on how I built it</p>
 
+<h2>WebSocket</h2>
+<p>The folder websocket contains to Namespaces and logic as well documentation on accepted calls</p>
+
 <h2>Db diagram sql</h2>
 <br>
 <img src="https://github.com/about14sheep/yell_proxy_chat/blob/master/serv/docs/yell_db.png">

@@ -8,8 +8,8 @@ class Stream_Socket(Namespace):
              {'data': 'Stream Connected'})
 
     def on_stream_yell(self, data):
-        ismember = rw.check_can_chat(data['user_id'], data['totem_id'])
-        if ismember == 1:
+        rw.user_collect_emote(data['user_id'], data['emote_id'])
+        if rw.check_can_chat(data['user_id'], data['totem_id']) == 1:
             emit('yell_response',
                  {'data': {
                      'username': data['username'],

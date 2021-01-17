@@ -59,3 +59,7 @@ class RediWrap():
 
     def check_can_chat(self, user_id, totem_id):
         return self.user.SET_check(user_id, totem_id)
+
+    def user_collect_emote(self, user_id, emote_id):
+        if self.emote.SET_check(emote_id, user_id) != 1:
+            self.emote.SET_set(emote_id, user_id)

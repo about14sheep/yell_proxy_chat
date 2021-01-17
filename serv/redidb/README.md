@@ -29,4 +29,4 @@
 
 <h3>SQL Calls</h3>
 
-<p>In the init file for the redis models module (rmodels folder) there are functions to save to interact with the sql database</p>
+<p>The init file for the redis models module (rmodels folder) is the interface to interact with the sql models</p>

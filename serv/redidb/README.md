@@ -26,3 +26,7 @@
     <li>Totem - TotemID: { long, lat }</li>
   </ul>
 </section>
+
+<h3>SQL Calls</h3>
+
+<p>In the init file for the redis models module (rmodels folder) there are functions to save to interact with the sql database</p>

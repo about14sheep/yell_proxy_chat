@@ -1,6 +1,6 @@
 import redis
 
-from .rmodels import rmodels
+from .rmodels import rmodels, save_user_emote
 
 
 class RediWrap():
@@ -63,3 +63,4 @@ class RediWrap():
     def user_collect_emote(self, user_id, emote_id):
         if self.emote.SET_check(emote_id, user_id) != 1:
             self.emote.SET_set(emote_id, user_id)
+            save_user_emote(user_id, emote_id)

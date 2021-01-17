@@ -59,6 +59,10 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def collect_emote(self, emote):
+        self.emotes.append(emote)
+        db.session.commit()
+
     def add_user(self):
         db.session.add(self)
 

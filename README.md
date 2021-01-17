@@ -1,5 +1,5 @@
 <h1>yell_proxy_chat</h1>
-<p>Proximity chat Redis implementation using WebSockets, with SQL storage by Flask and SQLAlchemy. Client built with React. Inspired by twitch.tv chat.</p>
+<p>Proximity chat Redis implementation using Flask with WebSockets, and SQL storage through SQLAlchemy. Client built with React. Inspired by twitch.tv chat.</p>
 
 <h2>Server</h2>
 <p>The <a href='https://github.com/about14sheep/yell_proxy_chat/tree/master/serv'>serv</a> folder holds the current state and documentation of the backend built in Flask, Sqlalchemy, and Redis</p>

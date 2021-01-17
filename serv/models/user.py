@@ -62,6 +62,7 @@ class User(db.Model, UserMixin):
     def collect_emote(self, emote):
         self.emotes.append(emote)
         db.session.commit()
+        return emote.to_dict()
 
     def add_user(self):
         db.session.add(self)

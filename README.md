@@ -17,7 +17,7 @@ The <a href='https://github.com/about14sheep/yell_proxy_chat/tree/master/client'
 <p>Emotes are at the core of yell. Users collect emotes by visiting (and chatting in) totems. Users can upload their own emote to attach to their totem as a 'Discovery Emote' - this emote is obtained by sending a chat message in the totems chat. Emotes can also be earned through events, geographically (using yell in different places), and step-wise (earn these emotes to unlock this emote). The emotes a user earns can be used in other channels.</p>
 
 <h4>Totems</h4>
-<p>Every user will have a totem. Users will be also be able to follow other user totems they like. Users can change the skin of their totem as well the discovery emote. When a user places their totem at their location it becomes a public channel. The totem can be seen by all users searching that area. Once a user joins a totem they will be able to chat (if that user is within 1 mile of the totem).</p>
+<p>Every user will have a totem. Users will also be able to follow other user totems they like. Users can change the skin of their totem as well the discovery emote. When a user places their totem at their location it becomes a public channel. The totem can be seen by all users searching that area. Once a user joins a totem they will be able to chat (if that user is within 1 mile of the totem).</p>
 
 <h4>Totem Skins</h4>
 <p>Totem Skins are earned through totem events (i.e. number of followers, number of users in chat).</p>

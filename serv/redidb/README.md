@@ -29,4 +29,4 @@
 
 <h3>SQL Calls</h3>
 
-<p>The init file for the redis models module (rmodels folder) is the interface to interact with the sql models</p>
+<p>The init file for <a href='https://github.com/about14sheep/yell_proxy_chat/tree/master/serv/redidb/rmodels'>rmodels</a> holds the interface functions to interact with the sql models</p>

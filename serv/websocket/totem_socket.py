@@ -6,7 +6,6 @@ from . import Namespace, emit, rw, authenticated_only
 class Totem_Socket(Namespace):
 
     def on_connect(self):
-        print('totem connected')
         emit('totem_connect_response',
              {'data': 'Totem Socket Connected'})
 

@@ -11,7 +11,10 @@ def rmodels(redis_db):
             rEmote(redis_db)]
 
 
-def save_user_emote(user_id, emote_id):
-    user = User.get_user_by_id(user_id)
-    emote = Emote.get_emote_by_id(emote_id)
-    return user.collect_emote(emote)
+class SQL_Interface():
+
+    @classmethod
+    def save_user_emote(user_id, emote_id):
+        user = User.get_user_by_id(user_id)
+        emote = Emote.get_emote_by_id(emote_id)
+        return user.collect_emote(emote)

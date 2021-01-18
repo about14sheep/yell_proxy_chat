@@ -1,6 +1,6 @@
 import redis
 
-from .rmodels import rmodels, SQL_Interface
+from .rmodels import rmodels_factory, SQL_Interface
 
 
 class RediWrap():
@@ -9,7 +9,10 @@ class RediWrap():
         rdb = redis.Redis(host=host,
                           port=port, db=1,
                           decode_responses=True)
-        self.totem, self.user, self.totem_skin, self.emote = rmodels(rdb)
+        (self.totem,
+         self.user,
+         self.totem_skin,
+         self.emote) = rmodels_factory(rdb)
 
     def set_totem(self, totem):
         self.totem.HASH_set(totem)

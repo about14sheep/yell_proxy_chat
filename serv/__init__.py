@@ -1,3 +1,6 @@
+# import eventlet
+# eventlet.monkey_patch()  # noqa
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_cors import CORS
@@ -24,7 +27,6 @@ app = Flask(__name__)
 login_manager = LoginManager()
 socketio = SocketIO(app)
 app.config.from_object(Config)
-
 login_manager.init_app(app)
 db.init_app(app)
 
@@ -56,4 +58,4 @@ def unauthorized():
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, message_queue='redis://')

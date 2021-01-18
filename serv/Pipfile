@@ -17,6 +17,7 @@ flask-jwt-extended = "*"
 flask-cors = "*"
 flask-socketio = "*"
 redis = "*"
+eventlet = "*"
 
 [requires]
 python_version = "3.8"

@@ -16,7 +16,7 @@ class User_Socket(Namespace):
     def on_user_get(self, data):
         user = rw.get_user(data['user_id'])
         emit('get_user_response',
-             'data': user)
+             {'data': user})
 
     def on_user_location(self, data):
         rw.set_user_totems(data['longitude'],

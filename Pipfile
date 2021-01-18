@@ -17,6 +17,7 @@ flask-cors = "*"
 flask-socketio = "*"
 python-socketio = {extras = ["client"], version = "*"}
 redis = "*"
+eventlet = "*"
 
 [requires]
 python_version = "3.8"

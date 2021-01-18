@@ -1,10 +1,13 @@
 from serv.models.user import User
 from serv.models.emote import Emote
 
-from . import rEmote, rTotem, rTotem_Skin, rUser
+from .rEmote import rEmote
+from .rTotem import rTotem
+from .rTotem_Skin import rTotem_Skin
+from .rUser import rUser
 
 
-def rmodels(redis_db):
+def rmodels_factory(redis_db):
     return [rTotem(redis_db),
             rUser(redis_db),
             rTotem_Skin(redis_db),

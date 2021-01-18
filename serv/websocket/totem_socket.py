@@ -6,6 +6,7 @@ from . import Namespace, emit, rw, authenticated_only
 class Totem_Socket(Namespace):
 
     def on_connect(self):
+        print('totem connected')
         emit('totem_connect_response',
              {'data': 'Totem Socket Connected'})
 
@@ -18,8 +19,7 @@ class Totem_Socket(Namespace):
 
     def on_totem_get(self, data):
         totem = rw.get_totem(data['totem_id'])
-        emit('get_totem_response',
-             'data': totem)
+        emit('get_totem_response', {'data': totem})
 
     def on_totem_scan(self, data):
         totems = rw.get_totems_in_radius(data['longitude'],

@@ -31,9 +31,7 @@ class Totem_Socket(Namespace):
         rw.set_totem_location(data['longitude'],
                               data['latitude'],
                               data['totem_id'])
-        emit('totem_place_response',
-             {'data': 'Totem {} placed'.format(data['totem_id'])},
-             broadcast=True)
+        emit('totem_place_response', data, broadcast=True)
 
     def on_totem_join(self, data):
         rw.user_join_totem(data['user_id'], data['totem_id'])

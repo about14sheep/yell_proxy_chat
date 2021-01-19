@@ -4,7 +4,7 @@ from . import Namespace, emit, rw, authenticated_only
 class Stream_Socket(Namespace):
 
     def on_connect(self):
-        emit('stream_connect_response', {'data': 'Stream Connected'})
+        emit('stream_connect', {'data': 'Stream Socket Connected'})
 
     def on_stream_yell(self, data):
         msg = {'username': data['username'], 'text': data['text']}
@@ -12,7 +12,7 @@ class Stream_Socket(Namespace):
             emote = rw.user_collect_emote(data['user_id'], data['emote_id'])
             if emote:
                 msg['emote'] = emote
-            emit('yell_response', {'data': msg}, room=data['totem_id'])
+            emit('stream_yell', {'data': msg}, room=data['totem_id'])
         else:
             msg['text'] = 'Get closer to chat!'
             emit('yell_response', {'data': msg})

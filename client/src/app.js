@@ -4,6 +4,11 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Main from './components/main';
 import Login from './components/login';
 import Dashboard from './components/dashboard';
+import TotemSocket from './sockets/totem'
+import UserSocket from './sockets/user'
+import StreamSocket from './sockets/stream'
+
+import { io } from 'socket.io-client'
 
 import { loadToken, loadUser } from './actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +18,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     rest.needLogin === true ? <Redirect to='/login' /> : <Component {...props} />
   )} />
 )
+
+new UserSocket(io)
+new TotemSocket(io)
+new StreamSocket(io)
+
 
 
 function App() {

@@ -25,14 +25,14 @@ from .api.bot_routes import bot_routes
 
 app = Flask(__name__)
 login_manager = LoginManager()
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='http://localhost:3000')
 app.config.from_object(Config)
 login_manager.init_app(app)
 db.init_app(app)
 
-socketio.on_namespace(Totem_Socket('/totem'))
-socketio.on_namespace(User_Socket('/user'))
-socketio.on_namespace(Stream_Socket('/stream'))
+socketio.on_namespace(Totem_Socket('/ws/totem'))
+socketio.on_namespace(User_Socket('/ws/user'))
+socketio.on_namespace(Stream_Socket('/ws/stream'))
 
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session_routes, url_prefix='/api/session')

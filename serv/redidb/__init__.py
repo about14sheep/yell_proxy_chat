@@ -45,17 +45,16 @@ class RediWrap():
             self.user.SET_set(user_id, totem)
 
     def set_totem_location(self, longitude, latitude, totem_id):
-        self.totem.GEO_set(totem_id, longitude, latitude)
+        self.totem.GEO_set({'totem_id': totem_id,
+                            'longitude': longitude,
+                            'latitude': latitude})
 
     def delete_totem_location(self, totem_id):
         self.totem.SET_purge(totem_id)
         self.totem.GEO_del(totem_id)
 
     def get_totems_in_radius(self, longitude, latitude, radius):
-        totems = self.totem.GEO_radius(longitude, latitude, radius)
-        for i, totem_id in enumerate(totems):
-            totems[i] = self.get_totem(totem_id)
-        return totems
+        return self.totem.GEO_radius(longitude, latitude, radius)
 
     def user_join_totem(self, user_id, totem_id):
         self.totem.SET_set(totem_id, user_id)

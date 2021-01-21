@@ -28,11 +28,16 @@ class rTotem():
     def SET_purge(self, totem_id):
         self.rdb.delete('S{}'.format(totem_id))
 
-    def GEO_set(self, totem_id, longitude, latitude):
-        self.rdb.geoadd('totems', longitude, latitude, totem_id)
+    def GEO_set(self, totem):
+        self.rdb.geoadd('totems', totem['longitude'],
+                        totem['latitude'], totem['totem_id'])
+        self.HASH_set(totem)
 
     def GEO_radius(self, longitude, latitude, radius):
-        return self.rdb.georadius('totems', longitude, latitude, radius, 'mi')
+        tots = self.rdb.georadius('totems', longitude, latitude, radius, 'mi')
+        for i, totem_id in enumerate(tots):
+            tots[i] = self.HASH_get(totem_id)
+        return tots
 
     def GEO_del(self, totem_id):
         self.rdb.zrem('totems', totem_id)

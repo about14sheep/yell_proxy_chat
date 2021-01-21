@@ -17,7 +17,7 @@ export default class TotemSocket {
     })
 
     this.ws.on('totems_near', res => {
-      console.log(res['data'])
+      console.log(res['totems'])
     })
 
     this.ws.on('totem_save', res => {

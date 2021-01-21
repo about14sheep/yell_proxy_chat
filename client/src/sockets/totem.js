@@ -35,6 +35,10 @@ export default class TotemSocket {
     this.ws.on('totem_leave', res => {
       console.log(res['data'])
     })
+
+    this.ws.on('totem_skin_save', res => {
+      console.log(res['data'])
+    })
   }
 
   saveTotemHash(ownerID, totemID, totemSkinID) {
@@ -59,5 +63,9 @@ export default class TotemSocket {
 
   leaveTotemRoom(userID, totemID) {
     this.ws.emit('totem_leave', {user_id: userID, totem_id: totemID})
+  }
+
+  saveTotemSkin(totemSkinID, imageURL, title) {
+    this.ws.emit('totem_skin_save', {totem_skin_id: totemSkinID, image_url: imageURL, totem_title: title})
   }
 }

@@ -43,3 +43,7 @@ class Totem_Socket(Namespace):
         leave_room(data['totem_id'])
         emit('totem_leave',
              {'data': 'Disconnected from totem {}'.format(data['totem_id'])})
+
+    def on_totem_skin_save(self, data):
+        rw.set_totem_skin(data)
+        emit('totem_skin_save', {'data': data})

@@ -5,19 +5,19 @@ class rEmote():
 
     def HASH_set(self, emote):
         for key in emote:
-            self.rdb.hset('H{}'.format(emote['emote_id']), key, emote[key])
+            self.rdb.hset('HE{}'.format(emote['emote_id']), key, emote[key])
 
     def HASH_get(self, emote_id):
-        self.rdb.hgetall('H{}'.format(emote_id))
+        self.rdb.hgetall('HE{}'.format(emote_id))
 
     def SET_set(self, emote_id, user_id):
-        self.rdb.sadd('S{}'.format(emote_id), user_id)
+        self.rdb.sadd('SE{}'.format(emote_id), user_id)
 
     def SET_get(self, emote_id):
-        return self.rdb.smembers('S{}'.format(emote_id))
+        return self.rdb.smembers('SE{}'.format(emote_id))
 
     def SET_del(self, emote_id, user_id):
-        return self.rdb.srem('S{}'.format(emote_id), user_id)
+        return self.rdb.srem('SE{}'.format(emote_id), user_id)
 
     def SET_check(self, emote_id, user_id):
-        return self.sismember('S{}'.format(emote_id), user_id)
+        return self.sismember('SE{}'.format(emote_id), user_id)

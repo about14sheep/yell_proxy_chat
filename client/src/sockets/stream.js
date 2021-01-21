@@ -16,4 +16,8 @@ export default class StreamSocket {
       console.log(res['data'])
     })
   }
+
+  sendYell(username, userID, totemID, text) {
+    this.ws.emit('stream_yell', {user_id: userID, totem_id: totemID, username: username, text: text})
+  }
 }

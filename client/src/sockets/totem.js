@@ -36,4 +36,28 @@ export default class TotemSocket {
       console.log(res['data'])
     })
   }
+
+  saveTotemHash(ownerID, totemID, totemSkinID) {
+    this.ws.emit('totem_save', {owner_id: ownerID, totem_id: totemID, totem_skin_id: totemSkinID})
+  }
+
+  getTotemHash(id) {
+    this.ws.emit('totem_get', {totem_id: id})
+  }
+
+  placeTotem(long, lat, id) {
+    this.ws.emit('totem_place', {longitude: long, latitude: lat, totem_id: id})
+  }
+
+  getTotemsInRadius(long, lat, rad) {
+    this.ws.emit('totem_scan', {longitude: long, latitude: lat, radius: rad})
+  }
+
+  joinTotemRoom(userID, totemID) {
+    this.ws.emit('totem_join', {user_id: userID, totem_id: totemID})
+  }
+
+  leaveTotemRoom(userID, totemID) {
+    this.ws.emit('totem_leave', {user_id: userID, totem_id: totemID})
+  }
 }

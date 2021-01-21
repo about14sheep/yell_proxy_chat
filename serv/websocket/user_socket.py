@@ -24,3 +24,8 @@ class User_Socket(Namespace):
                            data['user_id'])
         emit('user_location',
              {'data': 'Totems set for User {}'.format(data['user_id'])})
+
+    def on_create_emote(self, data):
+        rw.set_emote({'emote_id': data['emote_id'],
+                      'image_url': data['image_url'],
+                      'author_id': data['user_id']})

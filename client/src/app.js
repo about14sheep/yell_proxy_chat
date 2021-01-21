@@ -23,6 +23,7 @@ const user = new UserSocket(io)
 const totem = new TotemSocket(io)
 const stream = new StreamSocket(io)
 
+
 totem.getTotemsInRadius(-86.767960, 36.174465, 2)
 
 

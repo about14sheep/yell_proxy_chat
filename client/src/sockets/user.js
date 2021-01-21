@@ -37,4 +37,8 @@ export default class UserSocket {
     this.ws.emit('user_location', {longitude: long, latitude: lat, user_id: id})
   }
 
+  createEmote(emoteID, imageURL, userID) {
+    this.ws.emit('create_emote', {emote_id: emoteID, image_url: imageURL, user_id: userID})
+  }
+
 }

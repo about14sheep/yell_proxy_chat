@@ -41,8 +41,8 @@ export default class TotemSocket {
     })
   }
 
-  saveTotemHash(ownerID, totemID, totemSkinID) {
-    this.ws.emit('totem_save', {owner_id: ownerID, totem_id: totemID, totem_skin_id: totemSkinID})
+  saveTotemHash(ownerID, totemID, totemSkinID, emoteID) {
+    this.ws.emit('totem_save', {owner_id: ownerID, totem_id: totemID, totem_skin_id: totemSkinID, emote_id: emoteID})
   }
 
   getTotemHash(id) {

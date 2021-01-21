@@ -12,6 +12,7 @@ class rTotem():
         totem['owner'] = self.rdb.hgetall('HU{}'.format(totem.pop('owner_id')))
         totem['skin'] = self.rdb.hgetall('HTS{}'.format(
                                           totem.pop('totem_skin_id')))
+        totem['emote'] = self.rdb.hgetall('HE{}'.format(totem.pop('emote_id')))
         return totem
 
     def SET_set(self, totem_id, user_id):

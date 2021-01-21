@@ -15,6 +15,10 @@ export default class StreamSocket {
     this.ws.on('stream_yell', res => {
       console.log(res['data'])
     })
+
+    this.ws.on('new_emote', res => {
+      console.log(res['data'])
+    })
   }
 
   sendYell(username, userID, totemID, text) {

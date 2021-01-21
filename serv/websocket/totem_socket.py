@@ -12,6 +12,7 @@ class Totem_Socket(Namespace):
     def on_totem_save(self, data):
         rw.set_totem({'owner_id': data['owner_id'],
                       'totem_id': data['totem_id'],
+                      'emote_id': data['emote_id'],
                       'totem_skin_id': data['totem_skin_id']})
         emit('totem_save',
              {'data': 'Totem {} saved to redis'.format(data['totem_id'])})

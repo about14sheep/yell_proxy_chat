@@ -11,7 +11,7 @@ class Stream_Socket(Namespace):
         if rw.check_can_chat(data['user_id'], data['totem_id']) == 1:
             emote = rw.user_collect_emote(data['user_id'], data['emote_id'])
             if emote:
-                msg['emote'] = emote
+                emit('new_emote', {'data': emote})
             emit('stream_yell', {'data': msg}, room=data['totem_id'])
         else:
             msg['text'] = 'Get closer to chat!'

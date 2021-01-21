@@ -8,7 +8,11 @@ class rTotem():
             self.rdb.hset('H{}'.format(totem['totem_id']), key, totem[key])
 
     def HASH_get(self, totem_id):
-        return self.rdb.hgetall('H{}'.format(totem_id))
+        totem = self.rdb.hgetall('H{}'.format(totem_id))
+        totem['owner'] = self.rdb.hgetall('H{}'.format(totem.pop('owner_id')))
+        totem['skin'] = self.rdb.hgetall('H{}'.format(
+                                          totem.pop('totem_skin_id')))
+        return totem
 
     def SET_set(self, totem_id, user_id):
         self.rdb.sadd('S{}'.format(totem_id), user_id)

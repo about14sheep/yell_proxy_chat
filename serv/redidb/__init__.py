@@ -52,7 +52,10 @@ class RediWrap():
         self.totem.GEO_del(totem_id)
 
     def get_totems_in_radius(self, longitude, latitude, radius):
-        return self.totem.GEO_radius(longitude, latitude, radius)
+        totems = self.totem.GEO_radius(longitude, latitude, radius)
+        for i, totem_id in enumerate(totems):
+            totems[i] = self.get_totem(totem_id)
+        return totems
 
     def user_join_totem(self, user_id, totem_id):
         self.totem.SET_set(totem_id, user_id)

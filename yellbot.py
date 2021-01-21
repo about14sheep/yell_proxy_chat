@@ -23,7 +23,7 @@ def on_connect():
     #          }, namespace='/home')
 
 
-@sio.on('totem_place_response', namespace='/totem')
+@sio.on('totem_place', namespace='/totem')
 def on_auth(data):
     print(data)
 

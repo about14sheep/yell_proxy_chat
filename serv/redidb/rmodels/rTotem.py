@@ -4,13 +4,11 @@ class rTotem():
         self.rdb = redis_db
 
     def HASH_set(self, totem):
-        self.rdb.hset('H{}'.format(totem['totem_id']),
-                      'owner_id', totem['owner_id'],
-                      'totem_id', totem['totem_id'],
-                      'totem_skin_id', totem['totem_skin_id'])
+        for key in totem:
+            self.rdb.hset('H{}'.format(totem['totem_id']), key, totem[key])
 
     def HASH_get(self, totem_id):
-        return self.rdb.hget('H{}'.format(totem_id))
+        return self.rdb.hgetall('H{}'.format(totem_id))
 
     def SET_set(self, totem_id, user_id):
         self.rdb.sadd('S{}'.format(totem_id), user_id)

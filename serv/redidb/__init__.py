@@ -27,7 +27,11 @@ class RediWrap():
         self.emote.HASH_set(emote)
 
     def get_totem(self, totem_id):
-        return self.totem.HASH_get(totem_id)
+        totem = self.totem.HASH_get(totem_id)
+        totem['owner'] = self.get_user(totem.pop('owner_id'))
+        totem['skin'] = self.get_totem_skin(totem.pop('totem_skin_id'))
+        totem['emote'] = self.get_emote(totem.pop('emote_id'))
+        return totem
 
     def get_user(self, user_id):
         return self.user.HASH_get(user_id)
@@ -54,7 +58,10 @@ class RediWrap():
         self.totem.GEO_del(totem_id)
 
     def get_totems_in_radius(self, longitude, latitude, radius):
-        return self.totem.GEO_radius(longitude, latitude, radius)
+        tots = self.totem.GEO_radius(longitude, latitude, radius)
+        for i, totem_id in enumerate(tots):
+            tots[i] = self.get_totem(totem_id)
+        return tots
 
     def user_join_totem(self, user_id, totem_id):
         self.totem.SET_set(totem_id, user_id)

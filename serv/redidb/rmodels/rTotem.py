@@ -8,12 +8,7 @@ class rTotem():
             self.rdb.hset('HT{}'.format(totem['totem_id']), key, totem[key])
 
     def HASH_get(self, totem_id):
-        totem = self.rdb.hgetall('HT{}'.format(totem_id))
-        totem['owner'] = self.rdb.hgetall('HU{}'.format(totem.pop('owner_id')))
-        totem['skin'] = self.rdb.hgetall('HTS{}'.format(
-                                          totem.pop('totem_skin_id')))
-        totem['emote'] = self.rdb.hgetall('HE{}'.format(totem.pop('emote_id')))
-        return totem
+        return self.rdb.hgetall('HT{}'.format(totem_id))
 
     def SET_set(self, totem_id, user_id):
         self.rdb.sadd('ST{}'.format(totem_id), user_id)
@@ -39,10 +34,7 @@ class rTotem():
         self.HASH_set(totem)
 
     def GEO_radius(self, longitude, latitude, radius):
-        tots = self.rdb.georadius('totems', longitude, latitude, radius, 'mi')
-        for i, totem_id in enumerate(tots):
-            tots[i] = self.HASH_get(totem_id)
-        return tots
+        return self.rdb.georadius('totems', longitude, latitude, radius, 'mi')
 
     def GEO_del(self, totem_id):
         self.rdb.zrem('totems', totem_id)

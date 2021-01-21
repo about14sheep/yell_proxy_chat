@@ -24,7 +24,7 @@ class Totem_Socket(Namespace):
         totems = rw.get_totems_in_radius(data['longitude'],
                                          data['latitude'],
                                          data['radius'])
-        emit('totems_near', {'totems': totems})
+        emit('totems_near', {'data': totems})
 
     def on_totem_place(self, data):
         rw.set_totem_location(data['longitude'],

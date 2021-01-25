@@ -1,8 +1,9 @@
+import { io } from 'socket.io-client'
 import { socketUrl } from '../config'
 
 export default class StreamSocket {
 
-  constructor(io) {
+  constructor() {
     this.ws = io(`${socketUrl}/stream`)
     this.configureResponseHandlers()
   }
@@ -22,6 +23,6 @@ export default class StreamSocket {
   }
 
   sendYell(username, userID, totemID, text) {
-    this.ws.emit('stream_yell', {user_id: userID, totem_id: totemID, username: username, text: text})
+    this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text })
   }
 }

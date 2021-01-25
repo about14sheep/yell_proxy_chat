@@ -8,7 +8,6 @@ import TotemSocket from './sockets/totem'
 import UserSocket from './sockets/user'
 import StreamSocket from './sockets/stream'
 
-import { io } from 'socket.io-client'
 
 import { loadToken, loadUser } from './actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,9 +18,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   )} />
 )
 
-const user = new UserSocket(io)
-const totem = new TotemSocket(io)
-const stream = new StreamSocket(io)
+const user = new UserSocket()
+const totem = new TotemSocket()
+const stream = new StreamSocket()
 
 totem.getTotemsInRadius(-86.767960, 36.174465, 2)
 

@@ -4,9 +4,9 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Main from './components/main';
 import Login from './components/login';
 import Dashboard from './components/dashboard';
-import TotemSocket from './sockets/totem'
 import UserSocket from './sockets/user'
 import StreamSocket from './sockets/stream'
+import TotemSocket from './sockets/totem'
 
 
 import { loadToken, loadUser } from './actions/auth';

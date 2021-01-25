@@ -10,4 +10,5 @@ const configureStore = _ => {
   )
 };
 
-export default configureStore;
+const store = configureStore()
+export default store

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth_reducer';
+import authReducer from './authReducer';
+import totemReducer from './totemReducer'
 
 const rootReducer = combineReducers({
-  authReducer
+  authReducer,
+  totemReducer
 });
 
 export default rootReducer;

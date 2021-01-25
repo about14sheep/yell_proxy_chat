@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
 import { socketUrl } from '../config'
+import store from '../store'
 export default class TotemSocket {
 
   constructor() {
@@ -17,7 +18,7 @@ export default class TotemSocket {
     })
 
     this.ws.on('totems_near', res => {
-      console.log(res['data'])
+      store.dispatch(this.setTotems(res['data']))
     })
 
     this.ws.on('totem_save', res => {
@@ -39,6 +40,13 @@ export default class TotemSocket {
     this.ws.on('totem_skin_save', res => {
       console.log(res['data'])
     })
+  }
+
+  setTotems(totems) {
+    return {
+      type: 'SET_TOTEMS',
+      totems
+    }
   }
 
   saveTotemHash(ownerID, totemID, totemSkinID, emoteID) {

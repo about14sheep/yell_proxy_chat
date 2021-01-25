@@ -28,9 +28,9 @@ class RediWrap():
 
     def get_totem(self, totem_id):
         totem = self.totem.HASH_get(totem_id)
+        totem['emote'] = self.get_emote(totem.pop('emote_id'))
         totem['owner'] = self.get_user(totem.pop('owner_id'))
         totem['skin'] = self.get_totem_skin(totem.pop('totem_skin_id'))
-        totem['emote'] = self.get_emote(totem.pop('emote_id'))
         return totem
 
     def get_user(self, user_id):

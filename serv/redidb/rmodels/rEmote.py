@@ -8,7 +8,7 @@ class rEmote():
             self.rdb.hset('HE{}'.format(emote['emote_id']), key, emote[key])
 
     def HASH_get(self, emote_id):
-        self.rdb.hgetall('HE{}'.format(emote_id))
+        return self.rdb.hgetall('HE{}'.format(emote_id))
 
     def SET_set(self, emote_id, user_id):
         self.rdb.sadd('SE{}'.format(emote_id), user_id)

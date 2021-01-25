@@ -9,7 +9,7 @@ class rTotem_Skin():
                           key, skin[key])
 
     def HASH_get(self, skin_id):
-        return self.rdb.hgetall('HTS{}'.format(totem_skin_id))
+        return self.rdb.hgetall('HTS{}'.format(skin_id))
 
     def SET_set(self, skin_id, user_id):
         self.rdb.sadd('STS{}'.format(skin_id), user_id)

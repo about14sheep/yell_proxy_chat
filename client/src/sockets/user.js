@@ -23,6 +23,10 @@ export default class UserSocket {
     this.ws.on('user_location', res => {
       console.log(res['data'])
     })
+
+    this.ws.on('emote_created', res => {
+      console.log(res['data'])
+    })
   }
 
   saveUserHash(userID, username) {

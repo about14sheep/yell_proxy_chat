@@ -19,10 +19,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 const user = new UserSocket()
-const totem = new TotemSocket()
+export const totemSocket = new TotemSocket()
 const stream = new StreamSocket()
 
-totem.getTotemsInRadius(-86.767960, 36.174465, 2)
+totemSocket.getTotemsInRadius(-86.767960, 36.174465, 2)
 
 
 function App() {

@@ -13,7 +13,7 @@ function Main() {
   return (
     <>
       <h1>welcome to yell</h1>
-      <User />
+      <User user={user} />
       {totems ? totems.map(el => <Totem totem={el} userID={user.id} key={el.totem_id} />) : <h3>Loading Totems</h3>}
       {aChannel ? <Channel channel={aChannel} user={user} /> : <h3>join a channel to chat!</h3>}
     </>

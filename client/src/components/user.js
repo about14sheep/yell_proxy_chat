@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-function User() {
-  const user = useSelector(state => state.authReducer.user)
+function User(props) {
+  const user = props.user
 
 
   return (

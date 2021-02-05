@@ -4,14 +4,11 @@ import { streamSocket } from '../app'
 
 function Totem(props) {
   const totem = props.totem
-  const active_channel = useSelector(state => state.streamReducer.totem)
+  const activeTotem = useSelector(state => state.streamReducer.totem)
   
-
   const joinButtonPressed = _ => {
-    if (active_channel) {
-      if (active_channel) {
-        streamSocket.leaveTotemRoom(props.userID, active_channel.totem_id)
-      }
+    if (activeTotem) {
+      streamSocket.leaveTotemRoom(props.userID, activeTotem.totem_id)
     }
     streamSocket.joinTotemRoom(props.userID, totem.totem_id)
   }

@@ -1,12 +1,12 @@
 import React from 'react'
-import { totemSocket } from '../app'
+import { streamSocket } from '../app'
 
 function Totem(props) {
   const totem = props.totem
   
 
   const joinButtonPressed = _ => {
-    totemSocket.joinTotemRoom(props.userID, totem.totem_id)
+    streamSocket.joinTotemRoom(props.userID, totem.totem_id)
   }
   
   return (

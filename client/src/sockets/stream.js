@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
 import { socketUrl } from '../config'
+import store from '../store'
 
 export default class StreamSocket {
 
@@ -21,6 +22,35 @@ export default class StreamSocket {
     this.ws.on('new_emote', res => {
       console.log(res['data'])
     })
+
+    this.ws.on('totem_join', res => {
+      store.dispatch(this.setActiveRoom(res['data']))
+    })
+
+    this.ws.on('totem_leave', _ => {
+      store.dispatch(this.clearActiveRoom())
+    })
+  }
+
+  setActiveRoom(totemID) {
+    return {
+      type: 'SET_CHANNEL',
+      totemID
+    }
+  }
+
+  clearActiveRoom() {
+    return {
+      type: 'CLEAR_CHANNEL'
+    }
+  }
+
+  joinTotemRoom(userID, totemID) {
+    this.ws.emit('totem_join', { user_id: userID, totem_id: totemID })
+  }
+
+  leaveTotemRoom(userID, totemID) {
+    this.ws.emit('totem_leave', { user_id: userID, totem_id: totemID })
   }
 
   sendYell(username, userID, totemID, emoteID, text) {

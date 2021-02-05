@@ -29,19 +29,6 @@ export default class TotemSocket {
       console.log(res['data'])
     })
 
-    this.ws.on('stream_yell', res => {
-      const data = res['data']
-      console.log(`${data.username}: ${data.text}`)
-    })
-
-    this.ws.on('totem_join', res => {
-      store.dispatch(this.setActiveRoom(res['data']))
-    })
-
-    this.ws.on('totem_leave', _ => {
-      store.dispatch(this.clearActiveRoom())
-    })
-
     this.ws.on('totem_skin_save', res => {
       console.log(res['data'])
     })
@@ -51,19 +38,6 @@ export default class TotemSocket {
     return {
       type: 'SET_TOTEMS',
       totems
-    }
-  }
-
-  setActiveRoom(totemID) {
-    return {
-      type: 'SET_CHANNEL',
-      totemID
-    }
-  }
-
-  clearActiveRoom() {
-    return {
-      type: 'CLEAR_CHANNEL'
     }
   }
 
@@ -83,19 +57,8 @@ export default class TotemSocket {
     this.ws.emit('totem_scan', { longitude: long, latitude: lat, radius: rad })
   }
 
-  joinTotemRoom(userID, totemID) {
-    this.ws.emit('totem_join', { user_id: userID, totem_id: totemID })
-  }
-
-  leaveTotemRoom(userID, totemID) {
-    this.ws.emit('totem_leave', { user_id: userID, totem_id: totemID })
-  }
-
   saveTotemSkin(totemSkinID, imageURL, title) {
     this.ws.emit('totem_skin_save', { totem_skin_id: totemSkinID, image_url: imageURL, totem_title: title })
   }
 
-  sendYell(username, userID, totemID, emoteID, text) {
-    this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text, emote_id: emoteID })
-  }
 }

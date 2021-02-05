@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { totemSocket } from '../app'
+import { streamSocket } from '../app'
 
 function Channel(props) {
   const roomID = props.totemID
@@ -9,12 +9,12 @@ function Channel(props) {
 
   const leaveButtonPressed = _ => {
     if (active_channel) {
-      totemSocket.leaveTotemRoom(user.id, active_channel)
+      streamSocket.leaveTotemRoom(user.id, active_channel)
     }
   }
 
   const sendYell = _ => {
-    totemSocket.sendYell(user.username, user.id, roomID, 1, 'this is a testie')
+    streamSocket.sendYell(user.username, user.id, roomID, 1, 'this is a testie')
   }
 
   return (

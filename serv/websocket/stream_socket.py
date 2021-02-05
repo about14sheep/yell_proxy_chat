@@ -1,3 +1,5 @@
+from flask_socketio import leave_room, join_room
+
 from . import Namespace, emit, rw, authenticated_only
 
 
@@ -16,3 +18,15 @@ class Stream_Socket(Namespace):
         else:
             msg['text'] = 'Get closer to chat!'
             emit('stream_yell', {'data': msg})
+
+    def on_totem_join(self, data):
+        rw.user_join_totem(data['user_id'], data['totem_id'])
+        join_room(data['totem_id'])
+        emit('totem_join',
+             {'data': data['totem_id']})
+
+    def on_totem_leave(self, data):
+        rw.user_leave_totem(data['user_id'], data['totem_id'])
+        leave_room(data['totem_id'])
+        emit('totem_leave',
+             {'data': 'Disconnected from totem {}'.format(data['totem_id'])})

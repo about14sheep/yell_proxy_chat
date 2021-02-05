@@ -1,5 +1,3 @@
-from flask_socketio import leave_room, join_room
-
 from . import Namespace, emit, rw, authenticated_only
 
 
@@ -33,29 +31,6 @@ class Totem_Socket(Namespace):
                               data['totem_id'])
         emit('totem_place', data, broadcast=True)
 
-    def on_totem_join(self, data):
-        rw.user_join_totem(data['user_id'], data['totem_id'])
-        join_room(data['totem_id'])
-        emit('totem_join',
-             {'data': data['totem_id']})
-
-    def on_totem_leave(self, data):
-        rw.user_leave_totem(data['user_id'], data['totem_id'])
-        leave_room(data['totem_id'])
-        emit('totem_leave',
-             {'data': 'Disconnected from totem {}'.format(data['totem_id'])})
-
     def on_totem_skin_save(self, data):
         rw.set_totem_skin(data)
         emit('totem_skin_save', {'data': data})
-
-    def on_stream_yell(self, data):
-        msg = {'username': data['username'], 'text': data['text']}
-        if rw.check_can_chat(data['user_id'], data['totem_id']) == 1:
-            emote = rw.user_collect_emote(data['user_id'], data['emote_id'])
-            if emote:
-                emit('new_emote', {'data': emote})
-            emit('stream_yell', {'data': msg}, room=data['totem_id'])
-        else:
-            msg['text'] = 'Get closer to chat!'
-            emit('stream_yell', {'data': msg})

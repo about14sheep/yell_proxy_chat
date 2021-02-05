@@ -1,9 +1,10 @@
-const streamReducer = (state = {chat: []}, action) => {
+const streamReducer = (state = { }, action) => {
   switch (action.type) {
     case 'SET_CHANNEL': {
       return {
         ...state,
-        totem: action.totem
+        totem: action.totem,
+        chat: []
       }
     }
 
@@ -17,7 +18,7 @@ const streamReducer = (state = {chat: []}, action) => {
     case 'CLEAR_CHANNEL': {
       const nextState = { ...state }
       delete nextState.totem
-      nextState.chat = []
+      delete nextState.chat
       return nextState
     }
 

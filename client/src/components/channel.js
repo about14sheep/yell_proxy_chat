@@ -14,16 +14,13 @@ function Channel(props) {
     height: '400px',
     width: '250px',
     display: 'flex',
-    flexDirection: 'column-reverse',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
     
   }
 
   const leaveButtonPressed = _ => {
-    if (active_channel) {
-      streamSocket.leaveTotemRoom(user.id, active_channel.totem_id)
-    }
+    streamSocket.leaveTotemRoom(user.id, active_channel.totem_id)
   }
   
   const sendYell = e => {

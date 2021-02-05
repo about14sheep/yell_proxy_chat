@@ -23,7 +23,7 @@ export const totemSocket = new TotemSocket()
 
 totemSocket.getTotemsInRadius(-86.767960, 36.174465, 2)
 userSocket.updateUserLocation(-86.767960, 36.174465, 1)
-userSocket.updateUserLocation(-86.767960, 36.174465, 2)
+userSocket.updateUserLocation(139.839478, 35.652832, 2)
 
 
 function App() {

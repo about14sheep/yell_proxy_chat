@@ -1,6 +1,4 @@
-import { streamSocket } from "../app"
-
-const streamReducer = (state = {}, action) => {
+const streamReducer = (state = {chat: []}, action) => {
   switch (action.type) {
     case 'SET_CHANNEL': {
       return {
@@ -19,6 +17,7 @@ const streamReducer = (state = {}, action) => {
     case 'CLEAR_CHANNEL': {
       const nextState = { ...state }
       delete nextState.totem
+      nextState.chat = []
       return nextState
     }
 

@@ -15,8 +15,7 @@ export default class StreamSocket {
     })
 
     this.ws.on('stream_yell', res => {
-      const data = res['data']
-      console.log(`${data.username}: ${data.text}`)
+      store.dispatch(this.addChatMessage(res['data']))
     })
 
     this.ws.on('new_emote', res => {

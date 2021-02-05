@@ -6,24 +6,27 @@ function Channel(props) {
   const [text, setText] = useState('')
   const user = props.user
   const active_channel = props.channel
+  const chatMessages = useSelector(state => state.streamReducer.chat)
 
   const leaveButtonPressed = _ => {
     if (active_channel) {
       streamSocket.leaveTotemRoom(user.id, active_channel.totem_id)
     }
   }
-
+  
   const sendYell = e => {
     e.preventDefault()
     streamSocket.sendYell(user.username, user.id, active_channel.totem_id, active_channel.emote.emote_id, text)
+    setText('')
   }
 
   return (
     <>
       <h4>{`Totem ID: ${active_channel.totem_id}`}</h4>
       <button onClick={leaveButtonPressed}>Leave</button>
+      {chatMessages.map((el, i) => <p key={i}>{el.username}: {el.text}</p>)}
       <form onSubmit={sendYell}>
-        <input type='text' placeholder='Send a Message' onChange={e => setText(e.target.value)} />
+        <input type='text' value={text} placeholder='Send a Message' onChange={e => setText(e.target.value)} />
         <input type='submit' />
       </form>
     </>

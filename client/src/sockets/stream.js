@@ -14,7 +14,8 @@ export default class StreamSocket {
     })
 
     this.ws.on('stream_yell', res => {
-      console.log(res['data'])
+      const data = res['data']
+      console.log(`${data.username}: ${data.text}`)
     })
 
     this.ws.on('new_emote', res => {
@@ -22,7 +23,7 @@ export default class StreamSocket {
     })
   }
 
-  sendYell(username, userID, totemID, text) {
-    this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text })
+  sendYell(username, userID, totemID, emoteID, text) {
+    this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text, emote_id: emoteID })
   }
 }

@@ -30,11 +30,11 @@ export default class TotemSocket {
     })
 
     this.ws.on('totem_join', res => {
-      console.log(res['data'])
+      store.dispatch(this.setActiveRoom(res['data']))
     })
 
-    this.ws.on('totem_leave', res => {
-      console.log(res['data'])
+    this.ws.on('totem_leave', _ => {
+      store.dispatch(this.clearActiveRoom())
     })
 
     this.ws.on('totem_skin_save', res => {
@@ -46,6 +46,19 @@ export default class TotemSocket {
     return {
       type: 'SET_TOTEMS',
       totems
+    }
+  }
+
+  setActiveRoom(totemID) {
+    return {
+      type: 'SET_CHANNEL',
+      totemID
+    }
+  }
+
+  clearActiveRoom() {
+    return {
+      type: 'CLEAR_CHANNEL'
     }
   }
 

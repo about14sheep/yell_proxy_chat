@@ -37,7 +37,7 @@ class Totem_Socket(Namespace):
         rw.user_join_totem(data['user_id'], data['totem_id'])
         join_room(data['totem_id'])
         emit('totem_join',
-             {'data': 'Connected to totem {}'.format(data['totem_id'])})
+             {'data': data['totem_id']})
 
     def on_totem_leave(self, data):
         rw.user_leave_totem(data['user_id'], data['totem_id'])

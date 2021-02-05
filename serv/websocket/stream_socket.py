@@ -15,4 +15,4 @@ class Stream_Socket(Namespace):
             emit('stream_yell', {'data': msg}, room=data['totem_id'])
         else:
             msg['text'] = 'Get closer to chat!'
-            emit('yell_response', {'data': msg})
+            emit('stream_yell', {'data': msg})

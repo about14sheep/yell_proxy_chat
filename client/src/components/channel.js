@@ -5,7 +5,7 @@ import { streamSocket } from '../app'
 function Channel(props) {
   const [text, setText] = useState('')
   const user = props.user
-  const active_channel = useSelector(state => state.totemReducer.active_channel)
+  const active_channel = props.channel
 
   const leaveButtonPressed = _ => {
     if (active_channel) {

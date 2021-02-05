@@ -7,19 +7,6 @@ const totemReducer = (state = {}, action) => {
       }
     }
 
-    case 'SET_CHANNEL': {
-      return {
-        ...state,
-        active_channel: action.totem
-      }
-    }
-
-    case 'CLEAR_CHANNEL': {
-      const nextState = { ...state }
-      delete nextState.active_channel
-      return nextState
-    }
-
     default: return state
   }
 }

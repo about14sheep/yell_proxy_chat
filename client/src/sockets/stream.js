@@ -32,6 +32,13 @@ export default class StreamSocket {
     })
   }
 
+  addChatMessage(msg) {
+    return {
+      type: 'CHAT_MESSAGE',
+      msg
+    }
+  }
+
   setActiveRoom(totem) {
     return {
       type: 'SET_CHANNEL',

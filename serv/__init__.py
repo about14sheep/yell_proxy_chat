@@ -25,7 +25,8 @@ from .api.bot_routes import bot_routes
 
 app = Flask(__name__)
 login_manager = LoginManager()
-socketio = SocketIO(app, cors_allowed_origins='http://localhost:3000')
+socketio = SocketIO(app, cors_allowed_origins='http://localhost:3000',
+                    logger=True, engineio_logger=True)
 app.config.from_object(Config)
 login_manager.init_app(app)
 db.init_app(app)

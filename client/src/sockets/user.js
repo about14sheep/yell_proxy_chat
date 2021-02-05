@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
 import { socketUrl } from '../config'
+import store from '../store'
 
 export default class UserSocket {
   constructor() {
@@ -21,13 +22,20 @@ export default class UserSocket {
       console.log(res['data'])
     })
 
-    this.ws.on('user_location', res => {
-      console.log(res['data'])
+    this.ws.on('user_location', _ => {
+      console.log('user location obtained')
+      store.dispatch(this.setLocation())
     })
 
     this.ws.on('emote_created', res => {
       console.log(res['data'])
     })
+  }
+
+  setLocation() {
+    return {
+      type: 'SET_LOCATION'
+    }
   }
 
   saveUserHash(userID, username) {

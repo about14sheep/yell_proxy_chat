@@ -15,7 +15,6 @@ function Totem(props) {
       <p>Discover Emote: {totem.emote.image_url}</p>
       <p>Totem Skin: {totem.skin.image_url}</p>
       <button onClick={joinButtonPressed}>Join</button>
-
     </>
   )
 }

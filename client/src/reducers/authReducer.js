@@ -33,6 +33,13 @@ const authReducer = (state={}, action) => {
       return nextState;
     };
 
+    case 'SET_LOCATION': {
+      return {
+        ...state,
+        haveLocation: true
+      }
+    }
+
     default: return state;
   };
 };

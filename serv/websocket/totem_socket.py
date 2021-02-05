@@ -48,3 +48,14 @@ class Totem_Socket(Namespace):
     def on_totem_skin_save(self, data):
         rw.set_totem_skin(data)
         emit('totem_skin_save', {'data': data})
+
+    def on_stream_yell(self, data):
+        msg = {'username': data['username'], 'text': data['text']}
+        if rw.check_can_chat(data['user_id'], data['totem_id']) == 1:
+            emote = rw.user_collect_emote(data['user_id'], data['emote_id'])
+            if emote:
+                emit('new_emote', {'data': emote})
+            emit('stream_yell', {'data': msg}, room=data['totem_id'])
+        else:
+            msg['text'] = 'Get closer to chat!'
+            emit('stream_yell', {'data': msg})

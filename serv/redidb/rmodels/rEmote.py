@@ -20,4 +20,4 @@ class rEmote():
         return self.rdb.srem('SE{}'.format(emote_id), user_id)
 
     def SET_check(self, emote_id, user_id):
-        return self.sismember('SE{}'.format(emote_id), user_id)
+        return self.rdb.sismember('SE{}'.format(emote_id), user_id)

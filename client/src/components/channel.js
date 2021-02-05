@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { streamSocket, totemSocket } from '../app'
+import { totemSocket } from '../app'
 
 function Channel(props) {
   const roomID = props.totemID
@@ -14,7 +14,7 @@ function Channel(props) {
   }
 
   const sendYell = _ => {
-    streamSocket.sendYell(user.username, user.id, roomID, 1, 'this is a testie')
+    totemSocket.sendYell(user.username, user.id, roomID, 1, 'this is a testie')
   }
 
   return (

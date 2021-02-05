@@ -29,6 +29,11 @@ export default class TotemSocket {
       console.log(res['data'])
     })
 
+    this.ws.on('stream_yell', res => {
+      const data = res['data']
+      console.log(`${data.username}: ${data.text}`)
+    })
+
     this.ws.on('totem_join', res => {
       store.dispatch(this.setActiveRoom(res['data']))
     })
@@ -88,5 +93,9 @@ export default class TotemSocket {
 
   saveTotemSkin(totemSkinID, imageURL, title) {
     this.ws.emit('totem_skin_save', { totem_skin_id: totemSkinID, image_url: imageURL, totem_title: title })
+  }
+
+  sendYell(username, userID, totemID, emoteID, text) {
+    this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text, emote_id: emoteID })
   }
 }

@@ -2,11 +2,23 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { streamSocket } from '../app'
 
+import Message from './message'
+
 function Channel(props) {
   const [text, setText] = useState('')
   const user = props.user
   const active_channel = props.channel
   const chatMessages = useSelector(state => state.streamReducer.chat)
+  const chatStyle = {
+    overflowY: 'scroll',
+    height: '400px',
+    width: '250px',
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+    
+  }
 
   const leaveButtonPressed = _ => {
     if (active_channel) {
@@ -24,7 +36,9 @@ function Channel(props) {
     <>
       <h4>{`Totem ID: ${active_channel.totem_id}`}</h4>
       <button onClick={leaveButtonPressed}>Leave</button>
-      {chatMessages.map((el, i) => <p key={i}>{el.username}: {el.text}</p>)}
+      <div style={chatStyle}>
+        {chatMessages.map((el, i) => <Message key={i} msg={el} />)}
+      </div>
       <form onSubmit={sendYell}>
         <input type='text' value={text} placeholder='Send a Message' onChange={e => setText(e.target.value)} />
         <input type='submit' />

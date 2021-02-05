@@ -32,10 +32,10 @@ export default class StreamSocket {
     })
   }
 
-  setActiveRoom(totemID) {
+  setActiveRoom(totem) {
     return {
       type: 'SET_CHANNEL',
-      totemID
+      totem
     }
   }
 

@@ -10,7 +10,7 @@ const totemReducer = (state = {}, action) => {
     case 'SET_CHANNEL': {
       return {
         ...state,
-        active_channel: action.totemID
+        active_channel: action.totem
       }
     }
 

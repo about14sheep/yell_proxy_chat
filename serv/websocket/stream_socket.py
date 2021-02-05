@@ -21,9 +21,10 @@ class Stream_Socket(Namespace):
 
     def on_totem_join(self, data):
         rw.user_join_totem(data['user_id'], data['totem_id'])
+        totem = rw.get_totem(data['totem_id'])
         join_room(data['totem_id'])
         emit('totem_join',
-             {'data': data['totem_id']})
+             {'data': totem})
 
     def on_totem_leave(self, data):
         rw.user_leave_totem(data['user_id'], data['totem_id'])

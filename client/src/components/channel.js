@@ -30,7 +30,7 @@ function Channel(props) {
 
   return (
     <>
-      <h4>{`Totem ID: ${activeTotem.totem_id}`}</h4>
+      <h4>{`${activeTotem.owner.username}'s Totem`}</h4>
       <button onClick={leaveButtonPressed}>Leave</button>
       <div style={chatStyle}>
         {chatMessages.map((el, i) => <Message key={i} msg={el} />)}

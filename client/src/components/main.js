@@ -24,6 +24,7 @@ function Main() {
           <User user={user} />
         </div>
         <div>
+          <h2>Totems in range (2 mi)</h2>
           {totems ? totems.map(el => <Totem totem={el} userID={user.id} key={el.totem_id} />) : <h3>Loading Totems</h3>}
         </div>
         <div>

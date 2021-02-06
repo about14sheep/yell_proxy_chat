@@ -25,7 +25,7 @@ function Main() {
         </div>
         <div>
           <h2>Totems in range (2 mi)</h2>
-          {totems ? totems.map(el => <Totem totem={el} userID={user.id} key={el.totem_id} />) : <h3>Loading Totems</h3>}
+          {totems ? totems.map(el => <Totem totem={el} userID={user.id} key={el.totem_id} />) : <h3>Loading Totems...</h3>}
         </div>
         <div>
           {aChannel ? <Channel channel={aChannel} user={user} /> : <h3>join a channel to chat!</h3>}

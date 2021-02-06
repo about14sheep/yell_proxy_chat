@@ -18,6 +18,12 @@ function Channel(props) {
     justifyContent: 'flex-end'
   }
 
+  const headerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+  }
+
   const leaveButtonPressed = _ => {
     streamSocket.leaveTotemRoom(user.id, activeTotem.totem_id)
   }
@@ -30,8 +36,10 @@ function Channel(props) {
 
   return (
     <>
-      <h4>{`${activeTotem.owner.username}'s Totem`}</h4>
-      <button onClick={leaveButtonPressed}>Leave</button>
+      <div style={headerStyle}>
+        <h3>{`${activeTotem.owner.username}'s Totem`}</h3>
+        <button onClick={leaveButtonPressed}>Leave</button>
+      </div>
       <div style={chatStyle}>
         {chatMessages.map((el, i) => <Message key={i} msg={el} />)}
       </div>

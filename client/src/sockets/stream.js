@@ -62,4 +62,8 @@ export default class StreamSocket {
   sendYell(username, userID, totemID, emoteID, text) {
     this.ws.emit('stream_yell', { user_id: userID, totem_id: totemID, username: username, text: text, emote_id: emoteID })
   }
+
+  closeRoom(totemID) {
+    this.ws.emit('close_room', {'totem_id': totemID})
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { streamSocket } from '../app'
+import { streamSocket, userSocket } from '../app'
 
 function Totem(props) {
   const totem = props.totem
@@ -11,6 +11,9 @@ function Totem(props) {
       streamSocket.leaveTotemRoom(props.userID, activeTotem.totem_id)
     }
     streamSocket.joinTotemRoom(props.userID, totem.totem_id)
+    navigator.geolocation.getCurrentPosition(pos => {
+      userSocket.updateUserLocation(pos.coords.longitude, pos.coords.latitude, props.userID)
+    })
   }
   
   return (

@@ -1,4 +1,4 @@
-from flask_socketio import leave_room, join_room
+from flask_socketio import leave_room, join_room, close_room
 
 from . import Namespace, emit, rw, authenticated_only
 
@@ -31,3 +31,6 @@ class Stream_Socket(Namespace):
         leave_room(data['totem_id'])
         emit('totem_leave',
              {'data': 'Disconnected from totem {}'.format(data['totem_id'])})
+
+    def on_close_room(self, data):
+        close_room(data['totem_id'])

@@ -1,5 +1,5 @@
 import React from 'react'
-import { totemSocket } from '../app'
+import { totemSocket, streamSocket } from '../app'
 
 function UserTotem({ userID, totem }) {
 
@@ -19,6 +19,7 @@ function UserTotem({ userID, totem }) {
 
   const handleTotemPickup = _ => {
     totemSocket.pickupTotem(totem.totem_id)
+    streamSocket.closeRoom(totem.totem_id)
   }
 
   return (

@@ -2,6 +2,13 @@ import React from 'react'
 import { totemSocket } from '../app'
 
 function UserTotem({ userID, totem }) {
+
+  const createButton = _ => {
+    if (totem.isActive == 1) {
+      return <button onClick={handleTotemPickup}>Pickup Totem</button>
+    }
+    return <button onClick={handleTotemPlace}>Place Totem</button>
+  }
   
   const handleTotemPlace = _ => {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -10,12 +17,16 @@ function UserTotem({ userID, totem }) {
     })
   }
 
+  const handleTotemPickup = _ => {
+    totemSocket.pickupTotem(totem.totem_id)
+  }
+
   return (
     <>
       <p>User: {totem.owner.username}</p>
       <p>Discovery Emote: {totem.emote.image_url}</p>
       <p>Totem Skin: {totem.skin.image_url}</p>
-      {totem.isActive ? <button onClick={handleTotemPlace}>Place Totem</button> : null}
+      {createButton()}
     </>
   )
 

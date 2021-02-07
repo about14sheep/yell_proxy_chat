@@ -30,7 +30,11 @@ export default class TotemSocket {
     })
 
     this.ws.on('totem_place', res => {
-      store.dispatch(this.addTotem(res['data']))
+      store.dispatch(this.placeUserTotem(res['data']))
+    })
+
+    this.ws.on('totem_pickup', res => {
+      store.dispatch(this.pickupUserTotem(res['data']))
     })
 
     this.ws.on('totem_skin_save', res => {
@@ -59,9 +63,17 @@ export default class TotemSocket {
     }
   }
 
-  placeUserTotem() {
+  pickupUserTotem(totem) {
     return {
-      type: 'USER_TOTEM_PLACED'
+      type: 'USER_TOTEM_PICKUP',
+      totem
+    }
+  }
+
+  placeUserTotem(totem) {
+    return {
+      type: 'USER_TOTEM_PLACED',
+      totem
     }
   }
 
@@ -87,6 +99,10 @@ export default class TotemSocket {
 
   saveTotemSkin(totemSkinID, imageURL, title) {
     this.ws.emit('totem_skin_save', { totem_skin_id: totemSkinID, image_url: imageURL, totem_title: title })
+  }
+
+  pickupTotem(id) {
+    this.ws.emit('totem_pickup', {totem_id: id})
   }
 
 }

@@ -52,11 +52,15 @@ class RediWrap():
         self.totem.GEO_set({'totem_id': totem_id,
                             'longitude': longitude,
                             'latitude': latitude})
+        self.totem.HASH_set({'isActive': 1,
+                             'totem_id': totem_id})
         return self.get_totem(totem_id)
 
     def delete_totem_location(self, totem_id):
-        self.totem.SET_purge(totem_id)
+        self.totem.HASH_set({'isActive': 0,
+                             'totem_id': totem_id})
         self.totem.GEO_del(totem_id)
+        return self.get_totem(totem_id)
 
     def get_totems_in_radius(self, longitude, latitude, radius):
         tots = self.totem.GEO_radius(longitude, latitude, radius)

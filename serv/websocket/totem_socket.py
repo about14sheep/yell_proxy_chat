@@ -20,7 +20,6 @@ class Totem_Socket(Namespace):
         emit('get_totem', {'data': totem})
 
     def on_user_totem(self, data):
-        print('HERE IS THE TOTEM ID MY GUY:::::: ', data['totem_id'])
         totem = rw.get_totem(data['totem_id'])
         emit('user_totem', {'data': totem})
 
@@ -35,6 +34,10 @@ class Totem_Socket(Namespace):
                                       data['latitude'],
                                       data['totem_id'])
         emit('totem_place', {'data': totem})
+
+    def on_totem_pickup(self, data):
+        totem = rw.delete_totem_location(data['totem_id'])
+        emit('totem_pickup', {'data': totem})
 
     def on_totem_skin_save(self, data):
         rw.set_totem_skin(data)

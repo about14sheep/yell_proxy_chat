@@ -29,6 +29,14 @@ export default class TotemSocket {
       console.log(res['data'])
     })
 
+    this.ws.on('rem_totem', res => {
+      store.dispatch(this.removeTotem(res['data'].totem_id))
+    })
+
+    this.ws.on('new_totem', res => {
+      store.dispatch(this.addTotem(res['data']))
+    })
+
     this.ws.on('totem_place', res => {
       store.dispatch(this.removeTotems(res['data']))
     })
@@ -53,6 +61,13 @@ export default class TotemSocket {
     return {
       type: 'SET_TOTEM',
       totem
+    }
+  }
+
+  removeTotem(id) {
+    return {
+      type: 'REMOVE_TOTEM',
+      id
     }
   }
 

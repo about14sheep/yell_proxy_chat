@@ -14,6 +14,13 @@ const totemReducer = (state = {}, action) => {
       }
     }
 
+    case 'REMOVE_TOTEM': {
+      return {
+        ...state,
+        totems: state.totems.filter(el => el.totem_id !== action.id)
+      }
+    }
+
     case 'SET_USER_TOTEM': {
       return {
         ...state,

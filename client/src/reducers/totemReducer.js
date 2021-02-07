@@ -21,12 +21,11 @@ const totemReducer = (state = {}, action) => {
       }
     }
 
-    case 'USER_TOTEM_PICKUP': {
-      return {
-        ...state,
-        totems: state.totems.filter(el => el.totem_id != action.totem.totem_id),
-        userTotem: action.totem
-      }
+    case 'REMOVE_TOTEMS': {
+      const nextState = { ...state }
+      delete nextState.totems
+      delete nextState.userTotem
+      return nextState
     }
 
     case 'USER_TOTEM_PLACED': {

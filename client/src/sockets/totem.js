@@ -30,11 +30,11 @@ export default class TotemSocket {
     })
 
     this.ws.on('totem_place', res => {
-      store.dispatch(this.placeUserTotem(res['data']))
+      store.dispatch(this.removeTotems(res['data']))
     })
 
     this.ws.on('totem_pickup', res => {
-      store.dispatch(this.pickupUserTotem(res['data']))
+      store.dispatch(this.removeTotems(res['data']))
     })
 
     this.ws.on('totem_skin_save', res => {
@@ -63,16 +63,9 @@ export default class TotemSocket {
     }
   }
 
-  pickupUserTotem(totem) {
+  removeTotems(totem) {
     return {
-      type: 'USER_TOTEM_PICKUP',
-      totem
-    }
-  }
-
-  placeUserTotem(totem) {
-    return {
-      type: 'USER_TOTEM_PLACED',
+      type: 'REMOVE_TOTEMS',
       totem
     }
   }

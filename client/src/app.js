@@ -41,9 +41,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <PrivateRoute exact={true} path='/dashboard' needLogin={needLogin} component={Dashboard} />
-        <Route exact={true} path='/'>
-          <Main />
-        </Route>
+        <PrivateRoute exact={true} path='/' needLogin={needLogin} component={Main} />
         <Route exact={true} path='/login'>
           <Login />
         </Route>

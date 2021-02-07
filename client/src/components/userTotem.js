@@ -4,7 +4,7 @@ import { totemSocket, streamSocket } from '../app'
 function UserTotem({ userID, totem }) {
 
   const createButton = _ => {
-    if (totem.isActive == 1) {
+    if (parseInt(totem.isActive, 10) === 1) {
       return <button onClick={handleTotemPickup}>Pickup Totem</button>
     }
     return <button onClick={handleTotemPlace}>Place Totem</button>

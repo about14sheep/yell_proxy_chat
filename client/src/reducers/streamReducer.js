@@ -9,6 +9,7 @@ const streamReducer = (state = { }, action) => {
     }
 
     case 'REMOVE_TOTEM': {
+      if (!state.totem) return state
       if (state.totem.totem_id === action.id) {
         const nextState = { ...state }
         delete nextState.totem

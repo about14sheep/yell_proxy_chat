@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 
 import Main from './components/main';
 import Login from './components/login';
-import Dashboard from './components/dashboard';
 import UserSocket from './sockets/user'
 import StreamSocket from './sockets/stream'
 import TotemSocket from './sockets/totem'
@@ -17,6 +16,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     rest.needLogin === true ? <Redirect to='/login' /> : <Component {...props} />
   )} />
 )
+
+const ScrollToTop = _ => {
+  const { pathname } = useLocation()
+  useEffect(_ => {
+    window.scroll(0, 0)
+  }, [pathname])
+  return null
+}
 
 export const userSocket = new UserSocket()
 export const totemSocket = new TotemSocket()
@@ -39,12 +46,12 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Switch>
-        <PrivateRoute exact={true} path='/dashboard' needLogin={needLogin} component={Dashboard} />
-        <PrivateRoute exact={true} path='/' needLogin={needLogin} component={Main} />
-        <Route exact={true} path='/login'>
-          <Login />
-        </Route>
+          <PrivateRoute exact={true} path='/' needLogin={needLogin} component={Main} />
+          <Route exact={true} path='/login'>
+            <Login />
+          </Route>
       </Switch>
     </BrowserRouter>
   )

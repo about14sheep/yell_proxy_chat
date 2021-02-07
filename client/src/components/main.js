@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { totemSocket } from '../app'
+import { userSocket } from '../app'
 
 import Totem from './totem'
 import Channel from './channel'
@@ -15,6 +17,16 @@ function Main() {
   const totems = useSelector(state => state.totemReducer.totems)
   const user = useSelector(state => state.authReducer.user)
   const aChannel = useSelector(state => state.streamReducer.totem)
+
+  if (!totems) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      totemSocket.getTotemsInRadius(pos.coords.longitude, pos.coords.latitude, 2)
+      if (!user.haveLocation) {
+        userSocket.saveUserHash(user.id, user.username)
+        userSocket.updateUserLocation(pos.coords.longitude, pos.coords.latitude, user.id)
+      }
+    })
+  }
 
   return (
     <>

@@ -29,7 +29,7 @@ export const userSocket = new UserSocket()
 export const totemSocket = new TotemSocket()
 export const streamSocket = new StreamSocket()
 
-totemSocket.getTotemsInRadius(-86.767960, 36.174465, 2)
+
 
 function App() {
   const [loaded, setLoaded] = useState(false)

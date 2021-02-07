@@ -23,7 +23,6 @@ export default class UserSocket {
     })
 
     this.ws.on('user_location', _ => {
-      console.log('user location obtained')
       store.dispatch(this.setLocation())
     })
 

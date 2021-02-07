@@ -75,6 +75,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            'user_totem_id': [{
+                                'id': totem.id
+                              } for totem in self.user_totem],
             'authored_emotes': [{
                                  'id': emote.id,
                                  'image_url': emote.image_url

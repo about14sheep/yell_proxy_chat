@@ -52,6 +52,7 @@ class RediWrap():
         self.totem.GEO_set({'totem_id': totem_id,
                             'longitude': longitude,
                             'latitude': latitude})
+        return self.get_totem(totem_id)
 
     def delete_totem_location(self, totem_id):
         self.totem.SET_purge(totem_id)

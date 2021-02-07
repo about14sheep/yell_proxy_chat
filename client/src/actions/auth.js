@@ -39,12 +39,12 @@ export const loadUser = _ => async dispatch => {
 export const login = (email, password) => async dispatch => {
   const res = await fetch(`${apiUrl}/session`, {
     method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({email, password})
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
   });
 
   if (res.ok) {
-    const {user, token} = await res.json();
+    const { user, token } = await res.json();
     window.localStorage.setItem(TOKEN_KEY, token)
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
     dispatch(setUser(user));
@@ -55,8 +55,8 @@ export const login = (email, password) => async dispatch => {
 export const logout = userId => async dispatch => {
   const res = await fetch(`${apiUrl}/session`, {
     method: 'DELETE',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({'user_id': userId})
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 'user_id': userId })
   });
 
   if (res.ok) {

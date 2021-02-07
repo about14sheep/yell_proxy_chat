@@ -21,12 +21,16 @@ export default class TotemSocket {
       store.dispatch(this.setTotems(res['data']))
     })
 
+    this.ws.on('user_totem', res => {
+      store.dispatch(this.setUserTotem(res['data']))
+    })
+
     this.ws.on('totem_save', res => {
       console.log(res['data'])
     })
 
     this.ws.on('totem_place', res => {
-      console.log(res['data'])
+      store.dispatch(this.addTotem(res['data']))
     })
 
     this.ws.on('totem_skin_save', res => {
@@ -41,6 +45,26 @@ export default class TotemSocket {
     }
   }
 
+  addTotem(totem) {
+    return {
+      type: 'SET_TOTEM',
+      totem
+    }
+  }
+
+  setUserTotem(totem) {
+    return {
+      type: 'SET_USER_TOTEM',
+      totem
+    }
+  }
+
+  placeUserTotem() {
+    return {
+      type: 'USER_TOTEM_PLACED'
+    }
+  }
+
   saveTotemHash(ownerID, totemID, totemSkinID, emoteID) {
     this.ws.emit('totem_save', { owner_id: ownerID, totem_id: totemID, totem_skin_id: totemSkinID, emote_id: emoteID })
   }
@@ -51,6 +75,10 @@ export default class TotemSocket {
 
   placeTotem(long, lat, id) {
     this.ws.emit('totem_place', { longitude: long, latitude: lat, totem_id: id })
+  }
+
+  getUserTotem(id) {
+    this.ws.emit('user_totem', {totem_id: id})
   }
 
   getTotemsInRadius(long, lat, rad) {

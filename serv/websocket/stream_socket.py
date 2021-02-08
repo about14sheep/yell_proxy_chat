@@ -33,4 +33,5 @@ class Stream_Socket(Namespace):
              {'data': 'Disconnected from totem {}'.format(data['totem_id'])})
 
     def on_close_room(self, data):
+        emit('room_closing', {'data': data['totem_id']}, room=data['totem_id'])
         close_room(data['totem_id'])

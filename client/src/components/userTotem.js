@@ -18,8 +18,8 @@ function UserTotem({ userID, totem }) {
   }
 
   const handleTotemPickup = _ => {
-    totemSocket.pickupTotem(totem.totem_id)
     streamSocket.closeRoom(totem.totem_id)
+    totemSocket.pickupTotem(totem.totem_id)
   }
 
   return (

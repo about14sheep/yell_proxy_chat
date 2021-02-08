@@ -29,6 +29,10 @@ export default class StreamSocket {
     this.ws.on('totem_leave', _ => {
       store.dispatch(this.clearActiveRoom())
     })
+
+    this.ws.on('room_closing', _ => {
+      store.dispatch(this.clearActiveRoom())
+    })
   }
 
   addChatMessage(msg) {

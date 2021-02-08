@@ -41,7 +41,7 @@ function Channel(props) {
         <button onClick={leaveButtonPressed}>Leave</button>
       </div>
       <div style={chatStyle}>
-        {chatMessages.map((el, i) => <Message key={i} msg={el} />)}
+        {chatMessages ? chatMessages.map((el, i) => <Message key={i} msg={el} />) : null}
       </div>
       <form onSubmit={sendYell}>
         <input type='text' value={text} placeholder='Send a Message' onChange={e => setText(e.target.value)} />
